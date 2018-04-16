@@ -1,0 +1,127 @@
+title: Phone4
+widget_dimensions: [105, 105]
+widget_margins: [10, 8]
+columns: 3
+
+layout:
+    - info, giallo, blu
+    - uno, due, tre
+    - quattro, cinque, sei
+    - sette, otto, nove
+    - esc, zero, ok
+    - registra, su, demand-my
+    - sinistra, giu, destra
+    - include: bottom_panel_phone
+
+zero:
+    widget_type: scene
+    icon_on: mdi-numeric-0-box
+    icon_off: mdi-numeric-0-box
+    entity: switch.sky_button_tv_channel_0
+uno:
+    widget_type: scene
+    icon_on: mdi-numeric-1-box
+    icon_off: mdi-numeric-1-box
+    entity: switch.sky_button_tv_channel_1
+due:
+    widget_type: scene
+    icon_on: mdi-numeric-2-box
+    icon_off: mdi-numeric-2-box
+    entity: switch.sky_button_tv_channel_2
+tre:
+    widget_type: scene
+    icon_on: mdi-numeric-3-box
+    icon_off: mdi-numeric-3-box
+    entity: switch.sky_button_tv_channel_3
+quattro:
+    widget_type: scene
+    icon_on: mdi-numeric-4-box
+    icon_off: mdi-numeric-4-box
+    entity: switch.sky_button_tv_channel_4
+cinque:
+    widget_type: scene
+    icon_on: mdi-numeric-5-box
+    icon_off: mdi-numeric-5-box
+    entity: switch.sky_button_tv_channel_5
+sei:
+    widget_type: scene
+    icon_on: mdi-numeric-6-box
+    icon_off: mdi-numeric-6-box
+    entity: switch.sky_button_tv_channel_6
+sette:
+    widget_type: scene
+    icon_on: mdi-numeric-7-box
+    icon_off: mdi-numeric-7-box
+    entity: switch.sky_button_tv_channel_7
+otto:
+    widget_type: scene
+    icon_on: mdi-numeric-8-box
+    icon_off: mdi-numeric-8-box
+    entity: switch.sky_button_tv_channel_8
+nove:
+    widget_type: scene
+    icon_on: mdi-numeric-9-box
+    icon_off: mdi-numeric-9-box
+    entity: switch.sky_button_tv_channel_9
+su:
+    widget_type: scene
+    icon_on: mdi-arrow-up-bold
+    icon_off: mdi-arrow-up-bold
+    entity: switch.sky_button_arrow_up
+giu:
+    widget_type: scene
+    icon_on: mdi-arrow-down-bold
+    icon_off: mdi-arrow-down-bold
+    entity: switch.sky_button_arrow_down
+sinistra:
+    widget_type: scene
+    icon_on: mdi-arrow-left-bold
+    icon_off: mdi-arrow-left-bold
+    entity: switch.sky_button_arrow_left
+destra:
+    widget_type: scene
+    icon_on: mdi-arrow-right-bold
+    icon_off: mdi-arrow-right-bold
+    entity: switch.sky_button_arrow_right
+ok:
+    widget_type: scene
+    title: ok
+    icon_on: mdi-checkbox-marked
+    icon_off: mdi-checkbox-marked
+    entity: switch.sky_button_ok
+esc:
+    widget_type: scene
+    title: esc
+    icon_on: mdi-close-box
+    icon_off: mdi-close-box
+    entity: switch.sky_button_esc
+registra:
+    widget_type: scene
+    title: Rec
+    icon_on: mdi-record-rec
+    icon_off: mdi-record-rec
+    entity: switch.sky_button_rec
+info:
+    widget_type: scene
+    title: Info
+    icon_on: mdi-information
+    icon_off: mdi-information
+    entity: switch.sky_button_i
+giallo:
+    widget_type: scene
+    title: Giallo
+    icon_on: mdi-record
+    icon_off: mdi-record
+    entity: switch.sky_button_yellow
+blu:
+    widget_type: scene
+    title: Blu
+    icon_on: mdi-record
+    icon_off: mdi-record
+    entity: switch.sky_button_blue
+demand-my:
+    widget_type: scene
+    title: MySky
+    icon_on: mdi-play-circle
+    icon_off: mdi-play-circle
+    entity: switch.sky_button_on_demand
