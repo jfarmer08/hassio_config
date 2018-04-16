@@ -1,0 +1,70 @@
+###############################################################################
+#
+#                                 CAMERAS
+#
+###############################################################################
+#**************************** AUTOSTRADA A22 **********************************
+  - platform: generic
+    name: 1 Verona Nord
+    still_image_url: http://www.autobrennero.it/WebCamImg/km228.jpg
+  - platform: generic
+    name: 2 Nogarole
+    still_image_url: http://www.autobrennero.it/WebCamImg/km240.jpg
+  - platform: generic
+    name: 3 Mantova Sud
+    still_image_url: http://www.autobrennero.it/WebCamImg/km272.jpg
+  - platform: generic
+    name: 4 Reggiolo
+    still_image_url: http://www.autobrennero.it/WebCamImg/km285.jpg
+  - platform: generic
+    name: 5 Raccordo A1
+    still_image_url: http://www.autobrennero.it/WebCamImg/km313.jpg
+#******************************* METEO ****************************************
+  - platform: generic
+    name: Meteo Gramma
+    still_image_url: https://www.yr.no/place/Italy/Veneto/Verona/meteogram.svg
+    content_type: 'image/svg+xml'
+  - platform: generic
+    still_image_url: https://api.sat24.com/animated/EU/visual/2/Central%20European%20Standard%20Time
+    name: Meteo Visibile
+  - platform: generic
+    still_image_url: https://api.sat24.com/animated/EU/infraPolair/2/Central%20European%20Standard%20Time
+    name: Meteo Infrarosso 2
+  - platform: generic
+    still_image_url: https://api.sat24.com/animated/EU/rainTMC/2/Central%20European%20Standard%20Time
+    name: Meteo Pioggia
+  - platform: generic
+    still_image_url: http://www.meteo60.fr/satellites/animation-satellite-ir-france.gif
+    name: Meteo Infrarosso
+#******************************* WEBCAMS CASA *********************************
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url_tabletcucina
+    name: Webcam Cucina
+    username: !secret http_user
+    password: !secret camera_password
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url_smartphonesalotto
+    name: Webcam Salotto
+    username: !secret http_user
+    password: !secret camera_password
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url_tabletbagno
+    name: Webcam Bagno
+    username: !secret http_user
+    password: !secret camera_password
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url_zidoo
+    name: Webcam Salotto 2
+    username: !secret http_user
+    password: !secret camera_password
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url_smartphonesalotto3
+    name: Webcam Salotto 3
+    username: !secret http_user
+    password: !secret camera_password
+  - platform: mjpeg
+    mjpeg_url: !secret mjpeg_url_camera_da_letto
+    name: Webcam Camera da letto
+    username: !secret http_user
+    password: !secret camera_password
+#******************************************************************************

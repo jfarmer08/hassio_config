@@ -1,0 +1,206 @@
+###############################################################################
+#
+#                                 SENSORS
+#
+###############################################################################
+  - platform: speedtest
+    minute: 30
+    hour:
+      - 0
+      - 3
+      - 6
+      - 9
+      - 12
+      - 15
+      - 18
+      - 21
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+#******************************************************************************
+# Sensore Broadlink S1 custom component
+  - platform: broadlink_s1c
+    ip_address: !secret broadlink_s1
+    mac: !secret mac_broadlink_s1
+#******************************************************************************
+# Sensore Broadlink A1 in bagno
+  - platform: broadlink
+    update_interval: 60
+    name: Sensore
+    host: !secret broadlink_a1
+    mac: !secret mac_broadlink_a1
+    monitored_conditions:
+      - temperature 
+      - humidity
+      - air_quality
+      - light
+      - noise
+#******************************************************************************
+# Sensore di temperatura del Broadklink RM Pro in salotto
+  - platform: broadlink
+    update_interval: 60
+    name: Temperatura Salotto
+    host: !secret broadlink_rm_pro
+    mac: !secret mac_broadlink_rm_pro
+    monitored_conditions:
+      - temperature
+#******************************************************************************
+# Sensore di temperatura del Broadklink RM Pro in camera
+  - platform: broadlink
+    update_interval: 60
+    name: Temperatura Camera
+    host: !secret broadlink_rm_pro_2
+    mac: !secret mac_broadlink_rm_pro_2
+    monitored_conditions:
+      - temperature
+#******************************************************************************
+# Meteo Wundergroud
+#  - platform: wunderground
+#    api_key: !secret secret_wunderground_api_key
+#    monitored_conditions:
+#      - alerts
+#      - weather_1d_metric
+#      - weather_1n_metric
+#      - weather_2d_metric
+#      - weather_2n_metric
+#      - weather_3d_metric
+#      - weather_3n_metric
+#      - weather_4d_metric
+#      - weather_4n_metric
+#      - temp_high_record_c
+#      - temp_high_1d_c
+#      - temp_c
+#      - temp_low_1d_c
+#      - temp_low_record_c
+#      - precip_1d
+#      - precip_1d_mm
+#      - wind_kph
+#      - wind_1d_kph
+#******************************************************************************
+# Meteo Darksky
+  - platform: darksky
+    api_key: !secret secret_darksky_api_key
+    update_interval: 300
+    monitored_conditions:
+      - summary
+#      - icon spostata in nabaztag package
+      - nearest_storm_distance
+      - precip_type
+      - precip_intensity
+      - precip_probability
+      - temperature
+      - apparent_temperature
+      - dew_point
+      - wind_speed
+      - wind_bearing
+      - cloud_cover
+      - humidity
+      - pressure
+      - visibility
+      - ozone
+      - minutely_summary
+      - hourly_summary
+      - daily_summary
+      - temperature_max
+      - temperature_min
+      - apparent_temperature_max
+      - apparent_temperature_min
+      - precip_intensity_max
+      - uv_index
+#******************************************************************************
+# Calcolo Luce esterna per gestione luci
+  - platform: template
+    sensors:
+      above_cloud_lux:
+        friendly_name: "Above Cloud Lux"
+        unit_of_measurement: "Lux"
+        value_template: >-
+          {{ states.sun.sun.attributes.daylight | round(0) }}
+      lux:
+        friendly_name: "Exterior Lux"
+        unit_of_measurement: "lux"
+        value_template: '{{ ((100-states.sensor.dark_sky_cloud_coverage.state|float)/100 * states.sun.sun.attributes.daylight) | round(0)  }}'
+#******************************************************************************
+# Traduzione in Presente/Assente del valore di movimento delle Android IP Webcam
+  - platform: template
+    sensors:
+      movimento_cucina:
+        friendly_name: "Movimento Cucina"
+        value_template: >
+          {% if states('sensor.cucina_motion') | float > 250 %}
+            Presente
+          {% else %}
+            Assente
+          {% endif %}
+      movimento_salotto:
+        friendly_name: "Movimento Salotto"
+        value_template: >
+          {% if states('sensor.salotto_motion') | float > 250 %}
+            Presente
+          {% else %}
+            Assente
+          {% endif %}
+      movimento_bagno:
+        friendly_name: "Movimento Bagno"
+        value_template: >
+          {% if states('sensor.bagno_motion') | float > 250 %}
+            Presente
+          {% else %}
+            Assente
+          {% endif %}
+#******************************************************************************
+      temperatura_corretta_salotto:
+        friendly_name: "Temperatura Salotto"
+        unit_of_measurement: '°C'
+        value_template: "{{ states('sensor.temperatura_salotto_temperature')|float - 2 }}"
+#******************************************************************************
+# Stato dispositivi in rete
+      livingroomchromecast:
+        friendly_name: 'Chromecast Salotto'
+        value_template: "{{ 'Online' if is_state('device_tracker.chromecast_salotto', 'home') else 'Offline' }}"
+      bathroomchromecast:
+        friendly_name: 'Chromecast Bagno'
+        value_template: "{{ 'Online' if is_state('device_tracker.chromecast_bagno', 'home') else 'Offline' }}"
+      kitchenchromecast:
+        friendly_name: 'Chromecast Cucina'
+        value_template: "{{ 'Online' if is_state('device_tracker.chromecast_cucina', 'home') else 'Offline' }}"
+      computersalotto:
+        friendly_name: 'Computer Salotto'
+        value_template: "{{ 'Online' if is_state('device_tracker.computersalotto', 'home') else 'Offline' }}"
+      zidoo:
+        friendly_name: 'Zidoo Mediaplayer'
+        value_template: "{{ 'Online' if is_state('device_tracker.zidoo', 'home') else 'Offline' }}"
+      tabletbagno:
+        friendly_name: 'Tablet Bagno'
+        value_template: "{{ 'Online' if is_state('device_tracker.tabletbagno', 'home') else 'Offline' }}"
+      tabletcucina:
+        friendly_name: 'Tablet Cucina'
+        value_template: "{{ 'Online' if is_state('device_tracker.tabletcucina', 'home') else 'Offline' }}"
+      tabletcucina2:
+        friendly_name: 'Tablet Cucina 2'
+        value_template: "{{ 'Online' if is_state('device_tracker.tabletcucina2', 'home') else 'Offline' }}"
+      smartphonesalotto:
+        friendly_name: 'Tablet Salotto'
+        value_template: "{{ 'Online' if is_state('device_tracker.smartphonesalotto', 'home') else 'Offline' }}"
+      smartphonesalotto3:
+        friendly_name: 'Tablet Salotto'
+        value_template: "{{ 'Online' if is_state('device_tracker.smartphonesalotto3', 'home') else 'Offline' }}"
+#******************************************************************************
+# Informazioni di sistema della Raspberry Pi
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: memory_free
+      - type: memory_use_percent
+      - type: processor_use
+      - type: since_last_boot
+      - type: network_in
+        arg: eth0
+      - type: network_out
+        arg: eth0
+#******************************************************************************
+# Informazioni di sistema della Raspberry Pi
+  - platform: dnsip
+#******************************************************************************

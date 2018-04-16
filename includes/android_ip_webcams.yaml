@@ -1,0 +1,58 @@
+###############################################################################
+#
+#                            ANDROID IP WEBCAMS
+#
+###############################################################################
+  - name: 'Cucina'
+    username: !secret cam_user
+    password: !secret cam_password
+    host: !secret tabletcucina
+    scan_interval: 10
+    sensors:
+      - battery_voltage
+      - light
+      - motion
+#******************************************************************************
+  - name: 'Bagno'
+    username: !secret cam_user
+    password: !secret cam_password
+    host: !secret tabletbagno
+    scan_interval: 10
+    sensors:
+      - battery_voltage
+      - light
+      - motion
+#******************************************************************************
+  - name: 'Salotto 2'
+    username: !secret cam_user
+    password: !secret cam_password
+    host: !secret zidoo
+    port: 8081
+    scan_interval: 10
+    sensors:
+      - battery_voltage
+      - light
+      - motion
+#******************************************************************************
+  - name: 'Salotto 3'
+    username: !secret cam_user
+    password: !secret cam_password
+    host: !secret smartphonesalotto3
+    scan_interval: 10
+    sensors:
+      - battery_voltage
+      - light
+      - motion
+#******************************************************************************
+  - name: 'Camera da letto'
+    username: !secret cam_user
+    password: !secret cam_password
+    host: !secret smartphonecamera_da_letto
+    scan_interval: 10
+    sensors:
+      - battery_voltage
+      - light
+      - motion
+      - battery_temp
+      - pressure
+#******************************************************************************

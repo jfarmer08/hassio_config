@@ -1,0 +1,257 @@
+###############################################################################
+#
+#                                 SCRIPTS
+#
+###############################################################################
+#******************************************************************************
+  led_green_light:
+    alias: Turn external led to green color
+    sequence:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.led_green_light
+      - service: switch.turn_off
+        data:
+          entity_id: switch.led_red_light
+#******************************************************************************
+  led_red_light:
+    alias: Turn external led to red color
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.led_red_light
+      - service: switch.turn_on
+        data:
+          entity_id: switch.led_green_light
+#******************************************************************************
+  check_tv_status:
+    alias: check tv status
+    sequence:
+    - service: input_boolean.turn_on
+      data_template:
+        entity_id: >
+            {% if is_state("sensor.livingroomchromecast", "Online") %} input_boolean.guarda_tv
+            {% endif %}
+#******************************************************************************
+  reboot:
+    alias: Reboot HA
+    sequence:
+      - service: homeassistant.restart
+#******************************************************************************
+  alert:
+    alias: alert
+    sequence:
+      - service: shell_command.alarm_sound_doorchime
+        data_template:
+          message: Current temperature is {{ states.sensor.temperature.state }}
+#******************************************************************************
+  welcome_home:
+    sequence:
+      - service: tts.google_say
+        data:
+          entity_id: media_player.mpd
+          message: "Welcome home"
+#******************************************************************************
+  power_down:
+    sequence:
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: "http://192.168.1.100:8123/local/power_down.mp3"
+#******************************************************************************
+  local_radio:
+    sequence:
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: "http://icestreaming.rai.it/1.mp3"
+#******************************************************************************
+  stop_audio_player:
+    sequence:
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: ""
+#******************************************************************************
+  normal_mode:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.house_mode
+          option: "Normal"
+#******************************************************************************
+  dog_mode:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.house_mode
+          option: "Dog Mode"
+#******************************************************************************
+  night_mode:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.house_mode
+          option: "Night Mode"
+#******************************************************************************
+  weekend_mode:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.house_mode
+          option: "Weekend Mode"
+#******************************************************************************
+  athome_mode:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.house_mode
+          option: "At home"
+#******************************************************************************
+  vacation_mode:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.house_mode
+          option: "Vacation Mode"
+#******************************************************************************
+  lights_on_mode:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.house_mode
+          option: "Lights On"
+#******************************************************************************
+  apricancello:
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.cancello
+      - delay: 00:00:01
+      - service: switch.turn_off
+        data:
+          entity_id: switch.cancello
+#******************************************************************************
+  stereomax:
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_up
+      - delay:
+            milliseconds: 100
+      - service: switch.turn_on
+        data:
+          entity_id: switch.stereo_vol_down
+      - delay:
+            milliseconds: 100
+#******************************************************************************

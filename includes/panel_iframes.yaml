@@ -1,0 +1,22 @@
+###############################################################################
+#
+#                                 PANEL IFRAMES
+#
+###############################################################################
+  ide:
+    title: IDE
+    icon: mdi:code-braces
+    url: !secret panel_iframe_ide_url
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: !secret panel_iframe_configurator_url
+  terminal:
+    title: Terminal
+    icon: mdi:console-line
+    url: !secret panel_iframe_terminal_url
+  kodi:
+    title: Kodi
+    icon: mdi:movie
+    url: !secret panel_iframe_kodi_url
+#******************************************************************************
