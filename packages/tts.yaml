@@ -1,0 +1,180 @@
+###############################################################################
+#
+#                          TTS using Local Player 
+#
+###############################################################################
+#------------------------------------------------------------------------------
+#tts:
+#  - platform: google
+#    cache: true
+#    cache_dir: /config/www/vl/voice
+#------------------------------------------------------------------------------
+media_player:
+#------------------------------------------------------------------------------
+  - platform: universal
+    name: hassio
+#------------------------------------------------------------------------------
+shell_command:
+#------------------------------------------------------------------------------
+  remove_old_mp3_files: rm /config/www/vl/voice/*.mp3
+#------------------------------------------------------------------------------
+input_text:
+#------------------------------------------------------------------------------
+  hassio_voice:
+    name: TTS
+    initial: Say Something...
+    min: 1
+    max: 500
+    pattern: '[a-fA-F0-9]*'
+#------------------------------------------------------------------------------
+sensor:
+#------------------------------------------------------------------------------
+- platform: command_line
+  name: "last tts"
+  command: "ls /config/www/vl/voice/ -1t | head -1"
+  scan_interval: 5
+- platform: folder
+  folder: /config/www/vl/voice/
+#------------------------------------------------------------------------------
+script:
+#------------------------------------------------------------------------------
+  hassio_talk:
+    alias: Hassio talk script
+    sequence:
+      - alias: Hassio Talk 
+        service: tts.google_say
+        entity_id: media_player.hassio
+        data_template: 
+          message: >
+            '{{ message }}'
+          language: it
+          cache: True
+#------------------------------------------------------------------------------
+automation:
+#------------------------------------------------------------------------------
+  - alias: "TTS message at start"
+    trigger:
+      - platform: homeassistant
+        event: start
+    condition:
+      condition: time
+      after: '8:00:00'
+      before: '22:00:00'
+    action:
+      - service: shell_command.remove_old_mp3_files
+      - service: script.hassio_talk
+        data:
+          message: "Server on line"
+#******************************************************************************
+  - alias: "TTS info morning message weekdays"
+    trigger:
+    - platform: time
+      at: '7:45:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: 'input_boolean.mute'
+        state: 'off'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+    action:
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: "http://192.168.1.100:8123/local/sensor.mp3"
+      - service: shell_command.remove_old_mp3_files
+      - service: script.hassio_talk
+        data_template:
+          message: Buongiorno! In casa ci sono {{ states('sensor.temperatura_salotto_temperature') }} gradi mentre all'esterno la temperatura è di {{ states('sensor.dark_sky_temperature') }} gradi. Passate una buona giornata
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: "http://192.168.1.100:8123/local/sensor.mp3"
+#******************************************************************************
+  - alias: "TTS info morning message weekend"
+    trigger:
+    - platform: time
+      at: '8:45:00'
+    condition:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: 'input_boolean.mute'
+        state: 'off'
+      - condition: time
+        weekday:
+          - sat
+          - sun
+    action:
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: "http://192.168.1.100:8123/local/sensor.mp3"
+      - service: shell_command.remove_old_mp3_files
+      - service: script.hassio_talk
+        data_template:
+          message: Buongiorno! In casa ci sono {{ states('sensor.temperatura_salotto_temperature') }} gradi mentre all'esterno la temperatura è di {{ states('sensor.dark_sky_temperature') }} gradi. Passate una buona giornata
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: "http://192.168.1.100:8123/local/sensor.mp3"
+#******************************************************************************
+  - alias: "TTS info evening message"
+    trigger:
+    - platform: time
+      at: '19:30:00'
+    condition:
+    - condition: state
+      entity_id: 'input_boolean.mute'
+      state: 'off'
+    action:
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: "http://192.168.1.100:8123/local/sensor.mp3"
+      - service: shell_command.remove_old_mp3_files
+      - service: script.hassio_talk
+        data_template:
+          message: Buonasera! In casa ci sono {{ states('sensor.temperatura_salotto_temperature') }} gradi mentre all'esterno la temperatura è di {{ states('sensor.dark_sky_temperature') }} gradi. 
+      - service: hassio.addon_stdin
+        data:
+          addon: de3cd379_audio_player
+          input: "http://192.168.1.100:8123/local/sensor.mp3"
+#******************************************************************************
+  - alias: "Hassio Talk"
+    trigger:
+    - platform: state
+      entity_id: input_text.hassio_voice
+    condition:
+      condition: template
+      value_template: "{{ not is_state('input_text.hassio_voice', ' ') }}"
+    action:
+    - service: script.hassio_talk
+      data_template:
+        message: "{{ states('input_text.hassio_voice') }}"
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.hassio_voice
+        value: ' '
+#******************************************************************************
+  - alias: "Read TTS"
+    trigger:
+    - platform: state
+      entity_id: sensor.last_tts
+    condition:
+      condition: template
+      value_template: "{{ not is_state('sensor.last_tts', '') }}"
+    action:
+    - service: hassio.addon_stdin
+      data_template:
+        addon: de3cd379_audio_player
+        input: "http://192.168.1.100:8123/local/vl/voice/{{ states('sensor.last_tts') }}"
+    - delay: '00:00:05'
+    - service: tts.clear_cache
+#******************************************************************************
