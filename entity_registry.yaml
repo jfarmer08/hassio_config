@@ -1,0 +1,108 @@
+media_player.google_home:
+  name:
+  platform: cast
+  unique_id: 0221a8d5-a1c8-9937-1155-119f7c91b7a5
+media_player.home_group:
+  name:
+  platform: cast
+  unique_id: 34bffcef-4ecd-49b0-a886-03acd1a4f675
+climate.dining_room:
+  name:
+  platform: nest
+  unique_id: KuYuUJ9yUE_OA_n_DgO3A0BoUlBKrpJ-
+media_player.living_room_tv:
+  name:
+  platform: cast
+  unique_id: 4975ecfe-313a-376b-4e46-c37a62a5712e
+lock.locked:
+  name:
+  platform: zwave
+  unique_id: 7-72057594161168384
+lock.assa_abloy_yale_touchscreen_deadbolt_yrd220_locked:
+  name:
+  platform: zwave
+  unique_id: 8-72057594177945600
+sensor.assa_abloy_yale_touchscreen_deadbolt_yrd220_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 8-72057594178191361
+sensor.assa_abloy_yale_touchscreen_deadbolt_yrd220_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 8-72057594178191377
+switch.linear_ws15z1_wall_switch_switch:
+  name:
+  platform: zwave
+  unique_id: 9-72057594193723392
+sensor.aeotec_dsb09104_home_energy_meter_power:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210697282
+sensor.aeotec_dsb09104_home_energy_meter_power_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248625218
+sensor.aeotec_dsb09104_home_energy_meter_power_3:
+  name:
+  platform: zwave
+  unique_id: 10-216172782286553154
+sensor.aeotec_dsb09104_home_energy_meter_energy:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210713602
+sensor.aeotec_dsb09104_home_energy_meter_energy_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248641538
+sensor.aeotec_dsb09104_home_energy_meter_energy_3:
+  name:
+  platform: zwave
+  unique_id: 10-216172782286569474
+sensor.aeotec_dsb09104_home_energy_meter_previous_reading:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210713618
+sensor.aeotec_dsb09104_home_energy_meter_interval:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210713635
+sensor.aeotec_dsb09104_home_energy_meter_power_4:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210713730
+sensor.aeotec_dsb09104_home_energy_meter_exporting:
+  name:
+  platform: zwave
+  unique_id: 10-72057594210714112
+sensor.aeotec_dsb09104_home_energy_meter_previous_reading_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248641554
+sensor.aeotec_dsb09104_home_energy_meter_interval_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248641571
+sensor.aeotec_dsb09104_home_energy_meter_power_5:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248641666
+sensor.aeotec_dsb09104_home_energy_meter_exporting_2:
+  name:
+  platform: zwave
+  unique_id: 10-144115188248642048
+sensor.aeotec_dsb09104_home_energy_meter_previous_reading_3:
+  name:
+  platform: zwave
+  unique_id: 10-216172782286569490
+sensor.aeotec_dsb09104_home_energy_meter_interval_3:
+  name:
+  platform: zwave
+  unique_id: 10-216172782286569507
+sensor.aeotec_dsb09104_home_energy_meter_power_6:
+  name:
+  platform: zwave
+  unique_id: 10-216172782286569602
+sensor.aeotec_dsb09104_home_energy_meter_exporting_3:
+  name:
+  platform: zwave
+  unique_id: 10-216172782286569984

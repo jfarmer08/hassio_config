@@ -1,0 +1,220 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 40.066537
+  longitude: -85.978543
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 365
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Indiana/Indianapolis
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor:
+  - platform: yr
+  - platform: mqtt_room
+    device_id: 7bba5a6e250a
+    name: 'Blue 1'
+    state_topic: 'room_presence'
+    timeout: 5
+    away_timeout: 60
+  - platform: mqtt_room
+    device_id: 6e683d6557d2
+    name: 'Blue 2'
+    state_topic: 'room_presence'
+    timeout: 5
+    away_timeout: 60
+  - platform: plex
+  - platform: octoprint
+    name: OctoPrint
+    monitored_conditions:
+      - Current State
+      - Temperatures
+      - Job Percentage
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+octoprint:
+  host: 192.168.1.113
+  api_key: octopi_api
+  bed: true
+  number_of_tools: 2
+
+nest:
+  client_id: nest_client_id
+  client_secret: nest_client_secret
+
+device_tracker:
+  - platform: ddwrt
+    host: 192.168.1.1
+    username: root
+    password: admin
+    new_device_defaults:
+      track_new_devices: True
+      hide_if_away: False
+  - platform: ddwrt
+    host: 192.168.1.5
+    username: root
+    password: admin
+  - platform: ddwrt
+    host: 192.168.1.2
+    username: root
+    password: admin
+  - platform: nmap_tracker
+    hosts: 192.168.1.1/24
+
+zwave:
+  usb_path: /dev/ttyUSB0
+  network_key: "0x98,0xAE,0x39,0xAE,0x56,0x54,0x9C,0x58,0x93,0x14,0x43,0xC7,0xB7,0x86,0x87,0x10"
+
+media_player:
+  - platform: cast
+  - platform: pandora
+  - platform: plex
+  - platform: samsungtv
+    host: 192.168.1.76
+    mac: F8:77:B8:4E:27:B3
+    name: Master Bedroom
+    port: 8001
+  - platform: directv
+    host: 192.168.1.77
+    port: 8080
+    name: Living Room DirecTV Box
+    device: 0
+  - platform: directv
+    host: 192.168.1.77
+    port: 8080
+    name: Master Bedroom DirecTV
+    device: 500959D262B7
+  - platform: directv
+    host: 192.168.1.77
+    port: 8080
+    name: Chloe's Bedroom DirecTV
+    device: 500959D35355
+  - platform: directv
+    host: 192.168.1.77
+    port: 8080
+    name: Basement DirecTV
+    device: 403DEC2F1ADC
+
+camera:
+  - platform: ffmpeg
+    name: Front Door
+    input: -rtsp_transport tcp -i rtsp://admin:Honda125@192.168.1.64:554/h264_vga.sdp
+  - platform: mjpeg
+    name: Octo Pi
+    mjpeg_url: http://192.168.1.113:8080/?action=stream
+  - platform: mjpeg
+    name: Pi Zero
+    mjpeg_url: http://192.168.1.91:8081/
+  - platform: mjpeg
+    name: Garage
+    mjpeg_url: http://192.168.1.35:8080/videofeed
+
+ifttt:
+  key: dGeTffw2K0BOTu_99HQvBm
+
+binary_sensor:
+  - platform: octoprint
+    monitored_conditions:
+      - Printing
+      - Printing Error
+      
+mqtt:
+  broker: 127.0.0.1
+
+weblink:
+  entities:
+    - name: DD-WRT Repeater
+      url: http://192.168.1.1/
+      icon: mdi:router-wireless
+    - name: DD-WRT Garage
+      url: http://192.168.1.2/
+      icon: mdi:router-wireless
+    - name: DD-WRT Router
+      url: http://192.168.1.5/
+      icon: mdi:router-wireless
+    - name: PiCam
+      url: http://192.168.1.91:8765/
+      icon: mdi:router-wireless
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://192.168.1.85:3218
+  router:
+    title: 'Router Garage'
+    icon: mdi:router-wireless
+    url: 'http://192.168.1.1'
+  router2:
+    title: 'Router Living Room'
+    icon: mdi:router-wireless
+    url: 'http://192.168.1.2'
+  router5:
+    title: 'Router Loft'
+    icon: mdi:router-wireless
+    url: 'http://192.168.1.5'
+  octoprint:
+    title: 'Octo Pi'
+    url: mdi:printer-3d
+    url: 'http://192.168.1.113:5000'
+  picam:
+    title: 'Pi Cam'
+    url: mdi:webcam
+    url: 'http://192.168.1.91:8765'

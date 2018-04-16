@@ -1,0 +1,27 @@
+*
+!*.yaml
+!scenes
+!.gitignoread
+secrets.yaml
+known_devices.yaml
+
+# Other
+*.uuid
+*.conf
+*.db
+*.db-journal
+*.log
+*.noload
+*.txt
+*.sqlite
+*.xml
+*.backup
+*.token
+*.jpg
+*.js
+.HA_VERSION
+home-assistant.env
+home-assistant.*
+lib
+deps
+tts

@@ -1,0 +1,78 @@
+﻿<html>
+<head>
+    <title>HA Camera View</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!--
+        This viewport specification makes touch events a little more responsive in Chrome for Android
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.atmosphere.js"></script>
+    <script src="js/getWeatherTime.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <!--
+        The "manifest.json" file enables the "Add to homescreen" functionality in Chrome for Android
+        see https://developer.chrome.com/multidevice/android/installtohomescreen
+
+        House icon made by <a href="http://fontawesome.io" title="Dave Gandy">Dave Gandy</a>
+        from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under
+        <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+    -->
+    <link rel="manifest" href="manifest.json">
+    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="config.local.js"></script>
+    <script type="text/javascript">
+			$(document).ready(function() {
+				Log("Document ready", 2);
+				Start();
+			});
+    </script>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="date">2015-01-01</div>
+        <div class="refresh fa fa-backward fa-fw"></div>
+        <div class="clock">12:00</div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <!-- Place Cam views here-->
+
+    </div>
+
+    <!-- If you don't want to use the weather bar, remove the whole section below -->
+
+    <div class="weatherbar">
+        <div class="weather_observation">
+            <div style="position: absolute; font-size: 3em; font-weight: bold; color: #333333; right: 10px; bottom: 15px;">NOW</div>
+            <img src="weather/clear.png" id="observation_icon" style="position: absolute; bottom: 30px; left: 10px; -webkit-filter: invert(100%)" />
+            <div id="observation_weather" style="position: absolute; bottom: 36px; left: 80px; font-size: 1.8em;">?</div>
+            <div id="observation_temperature" style="position: absolute; bottom: 46px; right: 10px; font-size: 1.5em;">?</div>
+            <div id="observation_feelslike" style="position: absolute; bottom: 15px; right: 10px; font-size: 0.75em; font-style: italic;">?</div>
+        </div>
+        <div class="weather_forecast" id="weather_today">
+            <div id="forecast_title" style="position: absolute; font-size: 3em; font-weight: bold; color: #333333; right: 5px; bottom: 15px;">?</div>
+            <img src="weather/nt_clear.png" id="forecast_icon" style="position: absolute; bottom: 30px; left: 10px; -webkit-filter: invert(100%)" />
+            <div id="forecast_conditions" style="position: absolute; bottom: 36px; left: 80px; font-size: 1.8em;">?</div>
+            <div id="forecast_high" style="position: absolute; bottom: 46px; right: 10px; font-size: 1.5em;">?</div>
+            <div id="forecast_low" style="position: absolute; bottom: 15px; right: 10px; font-size: 0.75em; font-style: italic;">?</div>
+        </div>
+        <div class="weather_forecast" id="weather_tomorrow" style="display: none;">
+            <div id="forecast_title" style="position: absolute; font-size: 3em; font-weight: bold; color: #333333; right: 5px; bottom: 15px;">?</div>
+            <img src="weather/nt_clear.png" id="forecast_icon" style="position: absolute; bottom: 30px; left: 10px; -webkit-filter: invert(100%)" />
+            <div id="forecast_conditions" style="position: absolute; bottom: 36px; left: 80px; font-size: 1.8em;">?</div>
+            <div id="forecast_high" style="position: absolute; bottom: 46px; right: 10px; font-size: 1.5em;">?</div>
+            <div id="forecast_low" style="position: absolute; bottom: 15px; right: 10px; font-size: 0.75em; font-style: italic;">?</div>
+        </div>
+        <div id="observation_time" style="position: absolute; bottom: 95px; left: 5px; font-size: 0.5em; font-style: italic; color: #888888;">?</div>
+        <div id="forecast_time" style="position: absolute; bottom: 95px; right: 15px; font-size: 0.5em; font-style: italic; color: #888888;">?</div>
+    </div>
+
+    <!-- End of weather section -->
+
+</body>
+</html>
