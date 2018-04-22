@@ -58,18 +58,6 @@ sun:
 # Weather prediction
 sensor:
   - platform: yr
-  - platform: mqtt_room
-    device_id: 7bba5a6e250a
-    name: 'Blue 1'
-    state_topic: 'room_presence'
-    timeout: 5
-    away_timeout: 60
-  - platform: mqtt_room
-    device_id: 6e683d6557d2
-    name: 'Blue 2'
-    state_topic: 'room_presence'
-    timeout: 5
-    away_timeout: 60
   - platform: plex
   - platform: octoprint
     name: OctoPrint
@@ -175,9 +163,6 @@ binary_sensor:
       - Printing
       - Printing Error
       
-mqtt:
-  broker: 127.0.0.1
-
 weblink:
   entities:
     - name: DD-WRT Repeater
