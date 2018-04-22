@@ -212,9 +212,9 @@ panel_iframe:
     url: 'http://192.168.1.5'
   octoprint:
     title: 'Octo Pi'
-    url: mdi:printer-3d
+    icon: mdi:printer-3d
     url: 'http://192.168.1.113:5000'
   picam:
     title: 'Pi Cam'
-    url: mdi:webcam
+    icon: mdi:webcam
     url: 'http://192.168.1.91:8765'
