@@ -178,20 +178,44 @@ weblink:
       url: http://192.168.1.91:8765/
       icon: mdi:router-wireless
 
+android_ip_webcam:
+  - host: 192.168.1.35
+    sensors:
+      - audio_connections
+      - battery_level
+      - battery_temp
+      - battery_voltage
+      - light
+      - motion
+      - pressure
+      - proximity
+      - sound
+      - video_connections
+    switches:
+      - exposure_lock
+      - ffc
+      - focus
+      - gps_active
+      - night_vision
+      - overlay
+      - torch
+      - whitebalance_lock
+      - video_recording
+
 panel_iframe:
   github:
     title: Github
     icon: mdi:wrench
     url: 'https://github.com'
-  router_garage:
+  routergarage:
     title: 'Router Garage'
     icon: mdi:router-wireless
     url: 'http://192.168.1.1'
-  router_livingroom:
+  routerlivingroom:
     title: 'Router Living Room'
     icon: mdi:router-wireless
     url: 'http://192.168.1.2'
-  router_loft:
+  routerloft:
     title: 'Router Loft'
     icon: mdi:router-wireless
     url: 'http://192.168.1.5'
