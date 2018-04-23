@@ -2,10 +2,10 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
-  latitude: 40.066537
-  longitude: -85.978543
+  latitude: home_latitude
+  longitude: home_longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 365
+  elevation: home_elevation
   # metric for Metric, imperial for Imperial
   unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -35,7 +35,7 @@ http:
 # https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 updater:
   # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
+  include_used_components: true
 
 # Discover some devices automatically
 discovery:
@@ -203,7 +203,7 @@ panel_iframe:
     title: 'Pi Cam'
     icon: mdi:webcam
     url: 'http://192.168.1.91:8765'
-  picam:
+  googlekeep:
     title: 'Google Keep'
     icon: mdi:wrench
     url: 'https://ggogle.keep.com'
