@@ -179,19 +179,19 @@ weblink:
       icon: mdi:router-wireless
 
 panel_iframe:
-  configurator:
-    title: Configurator
+  github:
+    title: Github
     icon: mdi:wrench
-    url: http://192.168.1.85:3218
-  router:
+    url: 'https://github.com'
+  router_garage:
     title: 'Router Garage'
     icon: mdi:router-wireless
     url: 'http://192.168.1.1'
-  router2:
+  router_livingroom:
     title: 'Router Living Room'
     icon: mdi:router-wireless
     url: 'http://192.168.1.2'
-  router5:
+  router_loft:
     title: 'Router Loft'
     icon: mdi:router-wireless
     url: 'http://192.168.1.5'
@@ -203,3 +203,30 @@ panel_iframe:
     title: 'Pi Cam'
     icon: mdi:webcam
     url: 'http://192.168.1.91:8765'
+  picam:
+    title: 'Google Keep'
+    icon: mdi:wrench
+    url: 'https://ggogle.keep.com'
+android_ip_webcam:
+  - host: 192.168.1.35
+    sensors:
+      - audio_connections
+      - battery_level
+      - battery_temp
+      - battery_voltage
+      - light
+      - motion
+      - pressure
+      - proximity
+      - sound
+      - video_connections
+    switches:
+      - exposure_lock
+      - ffc
+      - focus
+      - gps_active
+      - night_vision
+      - overlay
+      - torch
+      - whitebalance_lock
+      - video_recording
