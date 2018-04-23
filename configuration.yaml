@@ -35,7 +35,7 @@ http:
 # https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 updater:
   # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
+  include_used_components: true
 
 # Discover some devices automatically
 discovery:
@@ -112,13 +112,7 @@ zwave:
 
 media_player:
   - platform: cast
-  - platform: pandora
   - platform: plex
-  - platform: samsungtv
-    host: 192.168.1.76
-    mac: F8:77:B8:4E:27:B3
-    name: Master Bedroom
-    port: 8001
   - platform: directv
     host: 192.168.1.77
     port: 8080
@@ -155,7 +149,7 @@ camera:
     mjpeg_url: http://192.168.1.35:8080/videofeed
 
 ifttt:
-  key: dGeTffw2K0BOTu_99HQvBm
+  key: ifttt_key
 
 binary_sensor:
   - platform: octoprint
