@@ -224,4 +224,6 @@ panel_iframe:
     title: 'Google Keep'
     icon: mdi:wrench
     url: 'https://ggogle.keep.com'
+    
+android_ip_webcam: !include includes/android_ip_webcams.yaml
 
