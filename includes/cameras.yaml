@@ -37,34 +37,13 @@
     still_image_url: http://www.meteo60.fr/satellites/animation-satellite-ir-france.gif
     name: Meteo Infrarosso
 #******************************* WEBCAMS CASA *********************************
+  - platform: ffmpeg
+    name: Front Door
+    input: -rtsp_transport tcp -i rtsp://admin:Honda125@192.168.1.64:554/h264_vga.sdp
   - platform: mjpeg
-    mjpeg_url: !secret mjpeg_url_tabletcucina
-    name: Webcam Cucina
-    username: !secret http_user
-    password: !secret camera_password
+    name: Octo Pi
+    mjpeg_url: http://192.168.1.113:8080/?action=stream
   - platform: mjpeg
-    mjpeg_url: !secret mjpeg_url_smartphonesalotto
-    name: Webcam Salotto
-    username: !secret http_user
-    password: !secret camera_password
-  - platform: mjpeg
-    mjpeg_url: !secret mjpeg_url_tabletbagno
-    name: Webcam Bagno
-    username: !secret http_user
-    password: !secret camera_password
-  - platform: mjpeg
-    mjpeg_url: !secret mjpeg_url_zidoo
-    name: Webcam Salotto 2
-    username: !secret http_user
-    password: !secret camera_password
-  - platform: mjpeg
-    mjpeg_url: !secret mjpeg_url_smartphonesalotto3
-    name: Webcam Salotto 3
-    username: !secret http_user
-    password: !secret camera_password
-  - platform: mjpeg
-    mjpeg_url: !secret mjpeg_url_camera_da_letto
-    name: Webcam Camera da letto
-    username: !secret http_user
-    password: !secret camera_password
+    name: Pi Zero
+    mjpeg_url: http://192.168.1.91:8081/
 #******************************************************************************

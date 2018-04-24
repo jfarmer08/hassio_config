@@ -4,24 +4,25 @@
 #
 ###############################################################################
   - platform: cast
-    host: !secret chromecast_salotto
-    name: Chromecast Salotto
-  - platform: cast
-    host: !secret chromecast_cucina
-    name: Chromecast Cucina
-  - platform: cast
-    host: !secret chromecast_bagno
-    name: Chromecast Bagno
-  - platform: kodi
-    host: !secret zidoo
-    username: !secret kodi_user
-    password: !secret kodi_password
-  - platform: mpd
-    host: !secret hassio
-  - platform: universal
-    name: allmediaplayers
-    children:
-      - media_player.bathroom
-      - media_player.living_room
-      - media_player.kitchen
+  - platform: plex
+  - platform: directv
+    host: 192.168.1.77
+    port: 8080
+    name: Living Room DirecTV Box
+    device: 0
+  - platform: directv
+    host: 192.168.1.77
+    port: 8080
+    name: Master Bedroom DirecTV
+    device: 500959D262B7
+  - platform: directv
+    host: 192.168.1.77
+    port: 8080
+    name: Chloe's Bedroom DirecTV
+    device: 500959D35355
+  - platform: directv
+    host: 192.168.1.77
+    port: 8080
+    name: Basement DirecTV
+    device: 403DEC2F1ADC
 #******************************************************************************

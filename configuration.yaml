@@ -56,16 +56,7 @@ map:
 sun:
 
 # Weather prediction
-sensor:
-  - platform: yr
-  - platform: plex
-  - platform: octoprint
-    name: OctoPrint
-    monitored_conditions:
-      - Current State
-      - Temperatures
-      - Job Percentage
-
+sensor: !include includes/sensors.yaml
 # Text to speech
 tts:
   - platform: google
@@ -78,7 +69,7 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 
 octoprint:
-  host: 192.168.1.113
+  host: 192.168.1.119
   api_key: octopi_api
   bed: true
   number_of_tools: 2
@@ -109,97 +100,11 @@ device_tracker:
 zwave:
   usb_path: /dev/ttyUSB0
 
-media_player:
-  - platform: cast
-  - platform: plex
-  - platform: directv
-    host: 192.168.1.77
-    port: 8080
-    name: Living Room DirecTV Box
-    device: 0
-  - platform: directv
-    host: 192.168.1.77
-    port: 8080
-    name: Master Bedroom DirecTV
-    device: 500959D262B7
-  - platform: directv
-    host: 192.168.1.77
-    port: 8080
-    name: Chloe's Bedroom DirecTV
-    device: 500959D35355
-  - platform: directv
-    host: 192.168.1.77
-    port: 8080
-    name: Basement DirecTV
-    device: 403DEC2F1ADC
-
-camera:
-  - platform: ffmpeg
-    name: Front Door
-    input: -rtsp_transport tcp -i rtsp://admin:Honda125@192.168.1.64:554/h264_vga.sdp
-  - platform: mjpeg
-    name: Octo Pi
-    mjpeg_url: http://192.168.1.113:8080/?action=stream
-  - platform: mjpeg
-    name: Pi Zero
-    mjpeg_url: http://192.168.1.91:8081/
-  - platform: mjpeg
-    name: Garage
-    mjpeg_url: http://192.168.1.35:8080/videofeed
-
-ifttt:
-  key: !secret ifttt_key
-
-binary_sensor:
-  - platform: octoprint
-    monitored_conditions:
-      - Printing
-      - Printing Error
-      
-weblink:
-  entities:
-    - name: DD-WRT Repeater
-      url: http://192.168.1.1/
-      icon: mdi:router-wireless
-    - name: DD-WRT Garage
-      url: http://192.168.1.2/
-      icon: mdi:router-wireless
-    - name: DD-WRT Router
-      url: http://192.168.1.5/
-      icon: mdi:router-wireless
-    - name: PiCam
-      url: http://192.168.1.91:8765/
-      icon: mdi:router-wireless
-
-panel_iframe:
-  github:
-    title: Github
-    icon: mdi:wrench
-    url: 'https://github.com'
-  routergarage:
-    title: 'Router Garage'
-    icon: mdi:router-wireless
-    url: 'http://192.168.1.1'
-  routerlivingroom:
-    title: 'Router Living Room'
-    icon: mdi:router-wireless
-    url: 'http://192.168.1.2'
-  routerloft:
-    title: 'Router Loft'
-    icon: mdi:router-wireless
-    url: 'http://192.168.1.5'
-  octoprint:
-    title: 'Octo Pi'
-    icon: mdi:printer-3d
-    url: 'http://192.168.1.113:5000'
-  picam:
-    title: 'Pi Cam'
-    icon: mdi:webcam
-    url: 'http://192.168.1.91:8765'
-  garagecamerasettings:
-    title: 'Garage Camera Settings'
-    icon: mdi:wrench
-    url: 'http://192.168.1.35:8080'
-    
+media_player: !include includes/media_player.yaml
+ifttt: !include includes/ifttt.yaml
+binary_sensor: !include includes/binary_sensor.yaml
+weblink: !include includes/weblinks.yaml
+panel_iframe: !include includes/panel_iframe.yaml
 android_ip_webcam: !include includes/android_ip_webcams.yaml
+camera: !include includes/cameras.yaml
 
