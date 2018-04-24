@@ -100,11 +100,11 @@ device_tracker:
 zwave:
   usb_path: /dev/ttyUSB0
 
-media_player: !include includes/media_player.yaml
+media_player: !include includes/media_players.yaml
 ifttt: !include includes/ifttt.yaml
 binary_sensor: !include includes/binary_sensor.yaml
 weblink: !include includes/weblinks.yaml
-panel_iframe: !include includes/panel_iframe.yaml
+panel_iframe: !include includes/panel_iframes.yaml
 android_ip_webcam: !include includes/android_ip_webcams.yaml
 camera: !include includes/cameras.yaml
 
