@@ -1,0 +1,6 @@
+lock_card:
+  name: Front Door Lock
+  entities:
+    - lock.front_door_locked
+    - sensor.lock_front_battery
+    - sensor.lock_front_status
