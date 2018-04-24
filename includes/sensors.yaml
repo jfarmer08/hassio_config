@@ -72,4 +72,10 @@
         friendly_name: 'Garage Door Lock Status'
         value_template: '{{ states.lock.garage_door_locked.attributes.lock_status }}'
         entity_id: lock.garage_door_locked
+#*********************************systemMonitor******************************************
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_free
 
