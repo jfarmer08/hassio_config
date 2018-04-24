@@ -46,4 +46,19 @@
   - platform: mjpeg
     name: Pi Zero
     mjpeg_url: http://192.168.1.91:8081/
-#******************************************************************************
+#*********************************Calendars*********************************************
+  - platform: generic
+    still_image_url: !secret AF_Calendar_url
+    name: Allen's Calendar
+  - platform: generic
+    still_image_url: !secret SF_Calendar_url
+    name: Stephanie's Calendar
+  - platform: generic
+    still_image_url: !secret CF_Calendar_url
+    name: Chloe's Calendar
+  - platform: generic
+    still_image_url: !secret SHF_Calendar_url
+    name: Sheldon's Calendar
+  - platform: generic
+    still_image_url: !secret KF_Calendar_url
+    name: Kaydee's Calendar
