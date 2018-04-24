@@ -62,4 +62,14 @@
         friendly_name: 'Front Door Lock Status'
         value_template: '{{ states.lock.front_door_locked.attributes.lock_status }}'
         entity_id: lock.front_door_locked
+#***********************************************************************************
+      lock_garage_door_battery:
+        friendly_name: 'Garage Door'
+        value_template: '{{ states.zwave.garage_door.attributes.battery_level }}'
+        unit_of_measurement: '%'
+        entity_id: zwave.garage_door
+      lock_front_door_status: 
+        friendly_name: 'Garage Door Lock Status'
+        value_template: '{{ states.lock.garage_door_locked.attributes.lock_status }}'
+        entity_id: lock.garage_door_locked
 
