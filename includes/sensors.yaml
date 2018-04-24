@@ -68,7 +68,7 @@
         value_template: '{{ states.zwave.garage_door.attributes.battery_level }}'
         unit_of_measurement: '%'
         entity_id: zwave.garage_door
-      lock_front_door_status: 
+      lock_garage_door_status: 
         friendly_name: 'Garage Door Lock Status'
         value_template: '{{ states.lock.garage_door_locked.attributes.lock_status }}'
         entity_id: lock.garage_door_locked
