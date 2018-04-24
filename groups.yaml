@@ -4,7 +4,7 @@ front_door_lock_card:
     - lock.front_door_locked
     - sensor.lock_front_door_battery
     - sensor.lock_front_door_status
-garage_Door_lock_card:
+garage_door_lock_card:
   name: Garage Door Lock
   entities:
     - lock.garage_door_locked
