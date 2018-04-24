@@ -78,4 +78,15 @@
       - type: disk_use_percent
         arg: /home
       - type: memory_free
+#******************************TIME*************************************
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+  - platform: worldclock
+    time_zone: America/New_York
 

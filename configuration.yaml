@@ -56,14 +56,16 @@ map:
 sun:
 
 # Weather prediction
-sensor: !include includes/sensors.yaml
+
 # Text to speech
 tts:
   - platform: google
 
 # Cloud
 cloud:
-
+websocket_api:
+api:
+system_log:
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -107,4 +109,5 @@ weblink: !include includes/weblinks.yaml
 panel_iframe: !include includes/panel_iframes.yaml
 android_ip_webcam: !include includes/android_ip_webcams.yaml
 camera: !include includes/cameras.yaml
+sensor: !include includes/sensors.yaml
 
