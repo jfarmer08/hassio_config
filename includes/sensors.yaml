@@ -21,7 +21,7 @@
 #******************************************************************************
 # Meteo Wundergroud
   - platform: wunderground
-    api_key: !secret secret_wunderground_api_key
+    api_key: !secret wu_api_key
     monitored_conditions:
       - alerts
       - weather_1d_metric
