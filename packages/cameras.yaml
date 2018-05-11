@@ -124,25 +124,29 @@ group:
 # frontdoor_camera_url: http://username:password@192.168.xxx.xxx/ISAPI/Streaming/channels/101/picture
 #
 camera:
-  - platform: generic
-    name: Frontdoor Camera
-    still_image_url: !secret frontdoor_camera_url
-
-  - platform: generic
-    name: Driveway Camera
-    still_image_url: !secret driveway_camera_url
-
-  - platform: generic
-    name: Patio Camera
-    still_image_url: !secret patio_camera_url
-
-  - platform: generic
-    name: Playarea Camera
-    still_image_url: !secret playarea_camera_url
-
+  - platform: ffmpeg
+    name: Front Door
+    input: -rtsp_transport tcp -i rtsp://admin:Honda125@192.168.1.64:554/h264_vga.sdp
   - platform: mjpeg
-    mjpeg_url: http://192.168.1.189:8081
-    name: Garage Camera
+    name: Octo Pi
+    mjpeg_url: http://192.168.1.113:8080/?action=stream
+  - platform: mjpeg
+    name: Pi Zero
+    mjpeg_url: http://192.168.1.91:8081/
+  - platform: mjpeg
+    name: Apple
+    mjpeg_url: http://192.168.1.122:8080/
+#******************************* Weather USB CAMERAS****************************************
+  - platform: generic
+    still_image_url: http://icons.wunderground.com//webcamramdisk/m/o/mowerpusher/2/current.jpg
+    name: Noblesville - Whitecomb Ridge
+  - platform: generic
+    still_image_url: https://cameras-cam.cdn.weatherbug.net/NBLHS/2018/05/11/051120180709_l.jpg
+    name: Noblesville Highschool
+  - platform: generic
+    still_image_url: https://icons.wxug.com/data/weather-maps/radar/united-states/united-states-current-radar.gif
+    name: United States Current radar
+
 
 binary_sensor:
 
