@@ -1,0 +1,21 @@
+#
+# Main arguments, all optional
+#
+title: Floorplan
+widget_dimensions: [154, 154]
+widget_margins: [5, 5]
+columns: 8
+#
+# Layout
+layout:
+    - hafloorplan_frame(8x4)
+    - 
+    -
+    -
+    - include: bottom_panel_floorplan
+
+hafloorplan_frame:
+    widget_type: iframe
+#    refresh: 60
+    url_list:
+      - !secret ha_floorplan_url

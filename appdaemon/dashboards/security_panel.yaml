@@ -1,0 +1,65 @@
+trent_presence:
+    widget_type: device_tracker
+    title: Trent
+    device: trents_galaxy
+    icon_on: mdi-human-male
+    icon_off: mdi-human-male
+    title_style: "font-size: 120%"
+    state_text_style: "font-size: 120%"
+    icon_style_active: "color: #4bcdea; font-size: 400%"
+    icon_style_inactive: "color: #4bcdea; font-size: 400%"
+
+rachel_presence:
+    widget_type: device_tracker
+    title: Rachel
+    device: rachels_iphone
+    icon_on: mdi-human-female
+    icon_off: mdi-human-female
+    title_style: "font-size: 120%"
+    state_text_style: "font-size: 120%"
+    icon_style_active: "color: #ea4b82; font-size: 400%"
+    icon_style_inactive: "color: #ea4b82; font-size: 400%"
+
+livingroom_motion:
+    widget_type: binary_sensor
+    title: Living Room Motion
+    entity: binary_sensor.motion
+    icon_on: mdi-run
+    icon_off: mdi-walk
+    title_style: "font-size: 120%"
+    icon_style_active: "font-size: 400%"
+    icon_style_inactive: "font-size: 400%"
+    
+hallway_motion:
+    widget_type: binary_sensor
+    title: Hallway Motion
+    entity: binary_sensor.motion_sensor_158d000165627b
+    icon_on: mdi-run
+    icon_off: mdi-walk
+    title_style: "font-size: 120%"
+    icon_style_active: "font-size: 400%"
+    icon_style_inactive: "font-size: 400%"
+    
+alarm:
+    widget_type: alarm
+    entity: alarm_control_panel.ha_alarm
+    title: Alarm
+    widget_style: "font-size: 120%"
+    title_style: "font-size: 130%"
+    state_style: "font-size: 120%"
+    panel_state_style: "font-size: 120%"
+    panel_code_style: "font-size: 120%"
+    panel_background_style: "font-size: 120%"
+    panel_button_style: "font-size: 120%"
+
+front_door_lock:
+    widget_type: lock
+    title: Front Door Lock
+    entity: lock.front_door
+    title_style: "color: $blue; font-size: 120%"
+    widget_style: "font-size: 120%"
+    icon_style_active: "font-size: 350%"
+    icon_style_inactive: "font-size: 350%"
+    
+layout: 
+    - trent_presence(1x1), rachel_presence(1x1), front_door_lock(2x1), alarm(2x1), livingroom_motion(1x1), hallway_motion(1x1)

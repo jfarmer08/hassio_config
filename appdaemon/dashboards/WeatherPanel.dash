@@ -1,0 +1,86 @@
+#
+# Main arguments, all optional
+#
+title: Weather Panel
+widget_dimensions: [154, 154]
+widget_size: [1, 1]
+widget_margins: [5, 5]
+columns: 8
+global_parameters:
+    use_comma: 0
+    precision: 1
+    use_hass_icon: 1
+# Layout
+layout:
+    - weather_frame(4x3), weather_hourly_summary(2x1), weather_daily_summary(2x1)
+    - weather_temperature(2x1), weather_daily_low_temperature, weather_daily_high_temperature
+    - weather_precip_intensity(2x1), weather_humidity(2x1)
+    - spacer(4x1), weather_visibility(2x1)
+    - include: bottom_panel_weather
+
+weather_frame:
+    widget_type: iframe
+    refresh: 300
+    frame_style: ""
+    img_list: 
+      - https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=002&brand=wui&num=1&delay=15&type=A0Q&frame=0&scale=0.25&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=0&lightning=0&smooth=0&rand=25304231&lat=0&lon=0&label=you
+
+weather_hourly_summary:
+    entity: sensor.weather_hourly_summary
+    title: Weather Hourly Summary
+    widget_type: sensor
+    text_style: "font-size: 160%"
+    title_style: "font-size: 160%"
+    icon_style_active: "font-size: 400%"
+    icon_style_inactive: "font-size: 400%"
+
+weather_daily_summary:
+    entity: sensor.weather_daily_summary
+    title: Weather Daily Summary
+    widget_type: sensor
+    text_style: "font-size: 160%"
+    title_style: "font-size: 160%"
+    icon_style_active: "font-size: 400%"
+    icon_style_inactive: "font-size: 400%"
+
+weather_temperature:
+    entity: sensor.weather_temperature
+    widget_type: sensor
+    title: Weather Temperature
+    title_style: "font-size: 125%"
+    widget_style: "font-size: 125%"
+
+weather_daily_low_temperature:
+    entity: sensor.weather_daily_low_temperature
+    widget_type: sensor
+    title: Weather Low Temperature
+    title_style: "font-size: 125%"
+    widget_style: "font-size: 125%"
+
+weather_daily_high_temperature:
+    entity: sensor.weather_daily_high_temperature
+    widget_type: sensor
+    title: Weather High Temperature
+    title_style: "font-size: 125%"
+    widget_style: "font-size: 125%"
+
+weather_precip_intensity:
+    entity: sensor.weather_precip_intensity
+    widget_type: sensor
+    title: Weather Precip Intensity
+    title_style: "font-size: 125%"
+    widget_style: "font-size: 125%"
+
+weather_humidity:
+    entity: sensor.weather_humidity
+    widget_type: sensor
+    title: Weather Humidity
+    title_style: "font-size: 125%"
+    widget_style: "font-size: 125%"
+
+weather_visibility:
+    entity: sensor.weather_visibility
+    widget_type: sensor
+    title: Weather Visibility
+    title_style: "font-size: 125%"
+    widget_style: "font-size: 125%"

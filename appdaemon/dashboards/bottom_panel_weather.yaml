@@ -1,0 +1,56 @@
+load_main_panel:
+    widget_type: navigate
+    title: Main Panel
+    icon_inactive: fa-home
+    dashboard: MainPanel
+    icon_inactive_style: "font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+load_security_panel:
+    widget_type: navigate
+    title: Security Panel
+    icon_inactive: fa-shield
+    dashboard: SecurityPanel
+    icon_inactive_style: "font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+load_weather_panel:
+    widget_type: navigate
+    title: Weather
+    icon_inactive: fa-cloud
+    icon_inactive_style: "color: $blue"
+    dashboard: WeatherPanel
+    icon_inactive_style: "color: $blue; font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+load_controls:
+    widget_type: navigate
+    title: Controls
+    icon_inactive: fa-dashboard
+    dashboard: Controls
+    icon_inactive_style: "font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+load_floorplan:
+    widget_type: navigate
+    title: Floorplan
+    icon_inactive: fa-map-marker
+    dashboard: Floorplan
+    icon_inactive_style: "font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+reload:
+    widget_type: reload
+    title: Reload
+    icon_inactive_style: "font-size: 350%"
+    icon_active_style: "font-size: 400%"
+    title_style: "font-size: 160%"
+
+layout: 
+    - load_main_panel(2x1), load_security_panel(2x1), load_weather_panel(2x1), load_floorplan(1x1), reload
+#, load_weather_panel(2x1),load_controls(2x1),load_floorplan(2x1)

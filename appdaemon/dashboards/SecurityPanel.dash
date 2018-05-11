@@ -1,0 +1,26 @@
+#
+# Main arguments, all optional
+#
+title: Security Panel
+widget_dimensions: [154, 154]
+widget_margins: [5, 5]
+columns: 8
+
+front_door:
+    widget_type: camera
+    refresh: 2
+    frame_style: ""
+    entity_picture: !secret front_door_camera_url
+
+back_deck:
+    widget_type: camera
+    refresh: 2
+    frame_style: ""
+    entity_picture: !secret back_deck_camera_url
+
+layout:
+    - front_door(4x3), back_deck(4x3)
+    -
+    -
+    - include: security_panel
+    - include: bottom_panel_security
