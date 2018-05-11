@@ -1,0 +1,224 @@
+###############################################################################
+#   @author         :   Mahasri Kalavala
+#   @date           :   07/16/2017
+#   @package        :   Cameras
+#   @description    :   Cameras and the automations
+###############################################################################
+homeassistant:
+  customize:
+
+    ################################################
+    ## Node Anchors
+    ################################################
+
+    package.node_anchors:
+      customize: &customize
+        package: 'cameras'
+
+      exposed: &exposed
+        <<: *customize
+        emulated_hue_hidden: true
+        homebridge_hidden: false
+        critical: true
+
+      not_exposed: &not_exposed
+        <<: *customize
+        emulated_hue_hidden: false
+        homebridge_hidden: true
+        critical: false
+
+      hidden: &hidden
+        <<: *customize
+        hidden: true
+        critical: false
+
+# Front Door Camera
+    binary_sensor.frontdoor_camera_motion:
+      friendly_name: Frontdoor Camera Motion
+    binary_sensor.frontdoor_camera_field_detection:
+      friendly_name: Frontdoor Field Detection
+    binary_sensor.frontdoor_camera_line_crossing:
+      friendly_name: Frontdoor Line Crossing
+    binary_sensor.frontdoor_camera_tamper_detection:
+      friendly_name: Frontdoor Camera Tamper Detection
+
+# Driveway Camera
+    binary_sensor.driveway_camera_motion:
+      friendly_name: Driveway Camera Motion
+    binary_sensor.driveway_camera_field_detection:
+      friendly_name: Driveway Field Detection
+    binary_sensor.driveway_camera_line_crossing:
+      friendly_name: Driveway Line Crossing
+    binary_sensor.driveway_camera_tamper_detection:
+      friendly_name: Driveway Camera Tamper Detection
+
+# Patio Camera
+    binary_sensor.patio_camera_motion:
+      friendly_name: Patio Camera Motion
+    binary_sensor.patio_camera_field_detection:
+      friendly_name: Patio Field Detection
+    binary_sensor.patio_camera_line_crossing:
+      friendly_name: Patio Line Crossing
+    binary_sensor.patio_camera_tamper_detection:
+      friendly_name: Patio Camera Tamper Detection
+
+# Playarea Camera
+    binary_sensor.playarea_camera_motion:
+      friendly_name: Playarea Camera Motion
+    binary_sensor.playarea_camera_field_detection:
+      friendly_name: Playarea Field Detection
+    binary_sensor.playarea_camera_line_crossing:
+      friendly_name: Playarea Line Crossing
+    binary_sensor.playarea_camera_tamper_detection:
+      friendly_name: Playarea Camera Tamper Detection
+
+    group.camera_field_detection:
+      <<: *hidden
+    group.camera_line_crossing:
+      <<: *hidden
+    group.camera_tamper_detection:
+      <<: *hidden
+
+group:
+  Frontyard Cameras:
+    entities:
+      - camera.frontdoor_camera
+      - camera.driveway_camera
+      - camera.garage_camera
+
+  Backyard Cameras:
+    entities:
+      - camera.patio_camera
+      - camera.playarea_camera
+
+  Camera Motion:
+    entities:
+      - binary_sensor.frontdoor_camera_motion
+      - binary_sensor.driveway_camera_motion
+      - binary_sensor.patio_camera_motion
+      - binary_sensor.playarea_camera_motion
+
+  Camera Field Detection:
+    entities:
+      - binary_sensor.frontdoor_camera_field_detection
+      - binary_sensor.driveway_camera_field_detection
+      - binary_sensor.patio_camera_field_detection
+      - binary_sensor.playarea_camera_field_detection
+      
+  Camera Line Crossing:
+    entities:
+      - binary_sensor.frontdoor_camera_line_crossing
+      - binary_sensor.driveway_camera_line_crossing
+      - binary_sensor.patio_camera_line_crossing
+      - binary_sensor.playarea_camera_line_crossing
+      
+  Camera Tamper Detection:
+    entities:
+      - binary_sensor.frontdoor_camera_tamper_detection
+      - binary_sensor.driveway_camera_tamper_detection
+      - binary_sensor.patio_camera_tamper_detection
+      - binary_sensor.playarea_camera_tamper_detection
+
+#
+# The camera url format in secrets.yaml would look like this: 
+# frontdoor_camera_url: http://username:password@192.168.xxx.xxx/ISAPI/Streaming/channels/101/picture
+#
+camera:
+  - platform: generic
+    name: Frontdoor Camera
+    still_image_url: !secret frontdoor_camera_url
+
+  - platform: generic
+    name: Driveway Camera
+    still_image_url: !secret driveway_camera_url
+
+  - platform: generic
+    name: Patio Camera
+    still_image_url: !secret patio_camera_url
+
+  - platform: generic
+    name: Playarea Camera
+    still_image_url: !secret playarea_camera_url
+
+  - platform: mjpeg
+    mjpeg_url: http://192.168.1.189:8081
+    name: Garage Camera
+
+binary_sensor:
+
+  - platform: hikvision
+    name: Frontdoor Camera
+    host: !secret frontdoor_camera_ip
+    username: !secret camera_username
+    password: !secret camera_password
+    
+  - platform: hikvision
+    name: Driveway Camera
+    host: !secret driveway_camera_ip
+    username: !secret camera_username
+    password: !secret camera_password
+
+  - platform: hikvision
+    name: Patio Camera
+    host: !secret patio_camera_ip
+    username: !secret camera_username
+    password: !secret camera_password
+
+  - platform: hikvision
+    name: Playarea Camera
+    host: !secret playarea_camera_ip
+    username: !secret camera_username
+    password: !secret camera_password
+
+automation:
+
+  - alias: Notify camera pictures
+    initial_state: true
+    hide_entity: true
+    trigger:
+     - platform: state
+       entity_id:
+         - binary_sensor.frontdoor_camera_field_detection
+         - binary_sensor.driveway_camera_field_detection
+         - binary_sensor.patio_camera_field_detection
+         - binary_sensor.playarea_camera_field_detection
+         - binary_sensor.frontdoor_camera_line_crossing
+         - binary_sensor.driveway_camera_line_crossing
+         - binary_sensor.patio_camera_line_crossing
+         - binary_sensor.playarea_camera_line_crossing
+       to: 'on'
+    condition:
+      - condition: template
+        value_template: '{{ states.input_boolean.notify_motion_pictures.state == "on" }}'
+      - condition: template
+        value_template: >
+          {% set suresh = states.device_tracker.mallika_mallika.state %}
+          {% set mallika = states.device_tracker.suresh_suresh.state %}
+          {% set srinika = states.device_tracker.srinika_srinika.state %}
+          {% set hasika = states.device_tracker.hasika_hasika.state %}
+          {{ 'True' if suresh != "home" and mallika != "home" and srinika != "home" and hasika != "home" else 'False' }}
+      - condition: template
+        value_template: >
+          {% set e = trigger.entity_id %}
+          {%- if e == "binary_sensor.playarea_camera_field_detection" or e == "binary_sensor.playarea_camera_line_crossing" -%}
+            {{((as_timestamp(now()) - as_timestamp(states.binary_sensor.playarea_camera_motion.attributes.last_tripped_time)))|round|abs < 30}}
+          {%- elif e == "binary_sensor.patio_camera_field_detection" or e == "binary_sensor.patio_camera_line_crossing" -%}
+            {{((as_timestamp(now()) - as_timestamp(states.binary_sensor.patio_camera_motion.attributes.last_tripped_time)))|round|abs < 30}}
+          {%- elif e == "binary_sensor.frontdoor_camera_field_detection" or e == "binary_sensor.frontdoor_camera_line_crossing" -%}
+            {{((as_timestamp(now()) - as_timestamp(states.binary_sensor.frontdoor_camera_motion.attributes.last_tripped_time)))|round|abs < 30}}
+          {%- elif e == "binary_sensor.driveway_camera_field_detection" or e == "binary_sensor.driveway_camera_line_crossing" -%}
+            {{((as_timestamp(now()) - as_timestamp(states.binary_sensor.driveway_camera_motion.attributes.last_tripped_time)))|round|abs < 30}}
+          {%- else -%}
+            true
+          {%- endif -%}
+    action:
+      - service: notify.ios_devices
+        data_template:
+          message: "Check {{ trigger.entity_id.split('.')[1].split('_')[0] | title }} camera."
+          data:
+            push:
+              category: camera
+            entity_id: "camera.{{ trigger.entity_id.split('.')[1].split('_')[0] ~ '' ~ '_camera' }}"
+            attachment:
+              url: "{{ states.camera[trigger.entity_id.split('.')[1].split('_')[0] ~ '' ~ '_camera'].attributes.entity_picture }}"
+              content-type: jpg

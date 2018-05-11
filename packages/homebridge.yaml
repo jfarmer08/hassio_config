@@ -1,0 +1,65 @@
+homeassistant:
+  customize_domain:
+
+    alarm_control_panel:
+      homebridge_hidden: false
+
+    binary_sensor:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    climate:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    cover:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    calendar:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    device_tracker:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    fan:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    group:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    input_boolean:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    light:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    lock:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    media_player:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    scene:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    remote:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    sensor:
+      homebridge_hidden: false
+      emulated_hue_hidden: false
+
+    switch:
+      homebridge_hidden: false
+      emulated_hue_hidden: false

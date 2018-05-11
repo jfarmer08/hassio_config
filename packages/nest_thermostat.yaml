@@ -1,0 +1,59 @@
+homeassistant:
+  customize:
+    binary_sensor.dining_room_thermostat_fan:
+      friendly_name: Thermostat Fan
+    binary_sensor.dining_room_thermostat_has_leaf:
+      friendly_name: Thermostat has Leaf
+    binary_sensor.dining_room_thermostat_is_locked:
+      friendly_name: Thermostat is Locked
+    binary_sensor.dining_room_thermostat_is_using_emergency_heat:
+      friendly_name: Thermostart Emergency Heat
+    binary_sensor.dining_room_thermostat_online:
+      friendly_name: Thermostat Online
+    
+    sensor.dining_room_thermostat_humidity:
+      friendly_name: Thermostat Humidity
+    sensor.dining_room_thermostat_hvac_state:
+      friendly_name: Thermostat HVAC State
+    sensor.dining_room_thermostat_operation_mode:
+      friendly_name: Thermostat Operation Mode
+    sensor.dining_room_thermostat_target:
+      friendly_name: Thermostat Target
+    sensor.dining_room_thermostat_temperature:
+      friendly_name: Thermostat Temperature
+
+    script.set_nest_away:
+      friendly_name: Set Nest Thermostat Away
+    script.set_nest_home:
+      friendly_name: Set Nest Thermostat Home
+
+group:
+  Nest Thermostat:
+    entities:
+      - binary_sensor.dining_room_thermostat_fan
+      - binary_sensor.dining_room_thermostat_has_leaf
+      - binary_sensor.dining_room_thermostat_is_locked
+      - binary_sensor.dining_room_thermostat_is_using_emergency_heat
+      - binary_sensor.dining_room_thermostat_online
+      - sensor.dining_room_thermostat_humidity
+      - sensor.dining_room_thermostat_hvac_state
+      - sensor.dining_room_thermostat_operation_mode
+      - sensor.dining_room_thermostat_target
+      - sensor.dining_room_thermostat_temperature
+
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+
+script:
+  set_nest_away:
+    sequence:
+      - service: nest.set_mode
+        data:
+          home_mode: away
+
+  set_nest_home:
+    sequence:
+      - service: nest.set_mode
+        data:
+          home_mode: home
