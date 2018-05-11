@@ -61,12 +61,12 @@ recorder:
 map:
 
 packages: 
-  pack_1: !include recycle_trash.yaml
-  pack_2: !include nest_thermostat.yaml
-  pack_3: !include alarm_clock.yaml
-  pack_4: !include homeassistant.yaml
-  pack_5: !include traffic_cam.yaml
-  pack_6: !include cameras.yaml
+  pack_1: !include packages/recycle_trash.yaml
+  pack_2: !include packages/nest_thermostat.yaml
+  pack_3: !include packages/alarm_clock.yaml
+  pack_4: !include packages/homeassistant.yaml
+  pack_5: !include packages/traffic_cam.yaml
+  pack_6: !include packages/cameras.yaml
 
 # Track the sun
 sun:
