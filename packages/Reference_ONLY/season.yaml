@@ -1,0 +1,61 @@
+#########################################################################################
+# @Author:      Suresh Kalavala
+# @Date:        09/13/2017
+# @Description: This Season sensor is used in the voice notifications to notify of Pollen 
+#               levels ONLY during Spring - because I am allergic to spring pollen ;)
+#               There you have it!!!
+#
+#               Possible Season values are: Spring, Summer, Autumn, and Winter
+#########################################################################################
+
+homeassistant:
+  customize:
+
+    ################################################
+    ## Node Anchors
+    ################################################
+
+    package.node_anchors:
+      customize: &customize
+        package: 'season'
+
+      exposed: &exposed
+        <<: *customize
+        emulated_hue_hidden: true
+        homebridge_hidden: false
+        critical: true
+
+      not_exposed: &not_exposed
+        <<: *customize
+        emulated_hue_hidden: false
+        homebridge_hidden: true
+        critical: false
+
+      hidden: &hidden
+        <<: *customize
+        hidden: true
+        critical: false
+
+    sensor.season:
+      <<: *hidden
+
+sensor:
+  - platform: season
+    type: astronomical
+
+automation:
+
+  - alias: Season Change Notification
+    initial_state: true
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: sensor.season
+    condition:
+      - condition: template
+        value_template: '{{ trigger.from_state.state | lower != "unknown" }}'
+    action:
+      - service: script.notify_me
+        data_template:
+            message: >
+              Good bye {{ trigger.from_state.state }}!, and Say Hello to {{ trigger.from_state.state }}.

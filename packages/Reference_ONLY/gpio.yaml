@@ -1,0 +1,71 @@
+###############################################################################
+#
+#                                 RPI GPIO
+#
+###############################################################################
+#------------------------------------------------------------------------------
+switch:
+#------------------------------------------------------------------------------
+#******************************** APRI CANCELLO *******************************
+  - platform: rpi_gpio
+    invert_logic: false
+    ports:
+      22: Cancello
+      24: led_red_light
+      20: ultrasonic_echo
+      21: ultrasonic_trigger
+  - platform: rpi_gpio
+    invert_logic: true
+    ports:
+      23: led_green_light
+#------------------------------------------------------------------------------
+sensor:
+#------------------------------------------------------------------------------
+#**************************** MODULO SENSORE TEMPERATURA **********************
+  - platform: dht
+    sensor: DHT11
+    name: dht
+    pin: 17
+#    temperature_offset: 2.1
+#    humidity_offset: -3.2
+    monitored_conditions:
+      - temperature
+      - humidity
+  - platform: filter
+    name: "filtered dht humidity"
+    entity_id: sensor.dht_humidity
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 4.0
+      - filter: lowpass
+        time_constant: 10
+        precision: 2
+  - platform: filter
+    name: "filtered dht temperature"
+    entity_id: sensor.dht_temperature
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 4.0
+      - filter: lowpass
+        time_constant: 10
+        precision: 2
+#******************************************************************************
+
+#------------------------------------------------------------------------------
+#binary_sensor:
+#------------------------------------------------------------------------------
+#  - platform: rpi_gpio
+#    ports:
+#      17: PIR Desk
+#    invert_logic: true
+#  - platform: template
+#    sensors:
+#      wired_motion_sensor_desktop:
+#        friendly_name: "Wired Motion Sensor Desktop"
+#        device_class: motion
+#        delay_off:
+#          seconds: 20
+#        value_template: >-
+#          {{ is_state('binary_sensor.pir_desk', 'on') }}

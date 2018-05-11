@@ -1,0 +1,115 @@
+###############################################################################
+#   @author         :   Trent Stanton
+#   @date           :   10/03/2018
+#   @package        :   Network Sensors
+#   @description    :   
+#   @url            :   
+###############################################################################
+homeassistant:
+  customize:
+    sensor.speedtest_download:
+     icon: 'mdi:speedometer'
+    sensor.speedtest_upload:
+      icon: 'mdi:speedometer'
+    sensor.speedtest_ping:
+      icon: 'mdi:speedometer'
+    sensor.nzbget_speed:
+      friendly_name: Current NZBGet Speed
+      icon: 'mdi:download'
+    sensor.xboxones:
+      icon: 'mdi:xbox'
+    sensor.xboxonex:
+      icon: 'mdi:xbox'
+    sensor.ps4:
+      icon: 'mdi:playstation'
+    sensor.xiaomigateway:
+      icon: 'mdi:home-automation'
+    sensor.livingroomgooglehome:
+      icon: 'mdi:google-home'
+    sensor.bedroomgooglehomemini:
+      icon: 'mdi:google-home'
+    sensor.livingroomchromecast:
+      icon: 'mdi:cast'
+    sensor.bedroomchromecast:
+      icon: 'mdi:cast'
+    sensor.outsidechromecast:
+      icon: 'mdi:cast'
+    sensor.livingroomtv:
+      icon: 'mdi:television'
+
+group:
+  network:
+    name: Network
+    control: hidden
+    entities:
+      - sensor.speedtest_ping
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.nzbget_speed
+      - switch.nzbget_switch
+      - sensor.uptime
+      - sensor.xiaomigateway
+      - sensor.livingroomgooglehome
+      - sensor.bedroomgooglehomemini
+      - sensor.livingroomtv
+      - sensor.livingroomchromecast
+      - sensor.bedroomchromecast
+      - sensor.outsidechromecast
+      - sensor.xboxonex
+      - sensor.xboxones
+      - sensor.ps4
+
+sensor:
+# Uptime Sensor
+  - platform: uptime
+# Speedtest
+  - platform: speedtest
+    minute: 30
+    hour:
+      - 0
+      - 12
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+# NZBGet Monitoring
+  - platform: nzbget
+    host: !secret nzbget_ipaddress
+    username: !secret nzbget_username
+    password: !secret nzbget_password
+    monitored_variables:
+      - download_rate
+      - download_paused
+# Device Tracking + Activity Templates
+  - platform: template
+    sensors:
+      xboxonex:
+        friendly_name: 'Living Room Xbox One X'
+        value_template: "{{ 'Online' if is_state('device_tracker.2C54915E056B', 'home') else 'Offline' }}"
+      xboxones:
+        friendly_name: 'Projector Room Xbox One S'
+        value_template: "{{ 'Online' if is_state('device_tracker.c49ded3b63e5', 'home') else 'Offline' }}"
+      ps4:
+        friendly_name: 'Projector Room Playstation 4'
+        value_template: "{{ 'Online' if is_state('device_tracker.ac899510c96d', 'home') else 'Offline' }}"
+      xiaomigateway:
+        friendly_name: 'Xiaomi Gateway'
+        value_template: "{{ 'Online' if is_state('device_tracker.34ce008d81ef', 'home') else 'Offline' }}"
+      livingroomgooglehome:
+        friendly_name: 'Living Room Google Home'
+        value_template: "{{ 'Online' if is_state('device_tracker.f4f5d8dc6f8e', 'home') else 'Offline' }}"
+      bedroomgooglehomemini:
+        friendly_name: 'Bed Room Google Home Mini'
+        value_template: "{{ 'Online' if is_state('device_tracker.48d6d58305fa', 'home') else 'Offline' }}"
+      livingroomchromecast:
+        friendly_name: 'Living Room Chromecast'
+        value_template: "{{ 'Online' if is_state('device_tracker.a477337ee656', 'home') else 'Offline' }}"
+      bedroomchromecast:
+        friendly_name: 'Bed Room Chromecast'
+        value_template: "{{ 'Online' if is_state('device_tracker.80d21d2c642a', 'home') else 'Offline' }}"
+      outsidechromecast:
+        friendly_name: 'Outside Chromecast Audio'
+        value_template: "{{ 'Online' if is_state('device_tracker.546009dca412', 'home') else 'Offline' }}"
+      livingroomtv:
+        friendly_name: 'Living Room TV'
+        value_template: "{{ 'Online' if is_state('device_tracker.f8042e789976', 'home') else 'Offline' }}"
