@@ -101,4 +101,5 @@ group: !include includes/groups.yaml
 automation: !include includes/automations.yaml
 script: !include includes/scripts.yaml
 device_tracker: !include includes/device_trackers.yaml
+panel_custom: !include includes/panel_custom.yaml
 
