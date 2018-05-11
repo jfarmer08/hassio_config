@@ -1,0 +1,145 @@
+# default_view:
+#    view: yes
+#    icon: mdi:home-assistant
+#    entities:
+#      - group.family
+#      - group.frontyard_cameras
+#      - group.backyard_cameras
+#      - group.home_security_system
+
+family_view:
+  view: yes
+  name: Family
+  icon: mdi:account-multiple
+  entities:
+    - group.date_time
+    - group.home__family
+    - group.weather
+    - group.dark_sky
+    - group.doppler_weather
+    - group.birthdays
+    - group.batteries
+    - group.travel_time
+    - group.calendar
+    - group.crime_reports
+    - group.ecobee
+    - group.where_is_everyone
+    - group.humidity_levels
+    - group.light_levels
+    - group.temperature_levels
+    - group.wifi
+    - group.motion_sensors
+    - group.multi_sensors
+    - group.postal_service
+    - group.location_maps
+
+Rooms:
+  view: yes
+  name: All Rooms
+  icon: mdi:home
+  entities:
+    - group.home__family  
+    - group.doors
+    - group.garage_doors
+    - group.door_sensors
+
+lights_switches:
+  view: yes
+  name: Lights and Swithches
+  icon: mdi:lightbulb-on
+  entities:
+    - group.upstairs_lights
+    - group.downstairs_lights
+    - group.rf_switches
+    - group.always_on
+    - group.outdoor_lights
+
+mediacenter_view:
+  view: yes
+  name: Media Center
+  icon: mdi:television
+  entities:
+     - group.group_denon_avrx2400h
+     - group.group_gstreamer
+     - group.group_mpd
+     - group.media_players
+     - group.snapcast_server_commands
+
+trash_recycle_view:
+  view: yes
+  name: Trash & Recycle
+  icon: mdi:recycle
+  entities:
+     - group.recycle_schedule
+     - group.trash_schedule
+
+system_view:
+  view: yes
+  name: System Info
+  icon: mdi:settings
+  entities:
+     - group.control_panel
+     - group.ads_blocked
+     - group.system_monitor
+     - group.internet_speed
+
+nest_thermostat_view:
+  view: yes
+  name: Nest Thermostat View
+  icon: mdi:nest-thermostat
+  entities:
+    - group.nest_thermostat
+
+scripts_view:
+  view: yes
+  name: Scripts
+  icon: mdi:script
+  entities:
+    - group.scripts
+    - group.emergency_scripts
+
+NAS:
+  view: yes
+  name: NAS
+  icon: mdi:harddisk
+  entities:
+    - group.qnap_server
+    - group.qnap_drives
+    - group.qnap_automations
+
+CCTV:
+  view: yes
+  name: CCTV
+  icon: mdi:cctv
+  entities:
+    - group.frontyard_cameras
+    - group.backyard_cameras
+    - group.camera_motion
+    - group.camera_tamper_detection
+    - group.camera_line_crossing
+    - group.camera_field_detection
+    - group.camera_sensors
+    - group.location_maps
+    - group.doppler_weather
+
+raspberry_pis:
+  view: yes
+  name: Raspberry Pis
+  icon: mdi:pig
+  entities:
+    - group.raspberry_pi_commands
+    - group.raspberry_pi_automations
+    - group.wifi_signal_strength
+    - group.wifi_link_quality
+    - group.disk_available
+    - group.disk_percent_used
+    - group.raspberry_pi_scripts
+    
+paloalto:
+  view: yes
+  name: Palo Alto
+  icon: mdi:fire
+  entities:
+    - group.paloalto_device
+    - group.paloalto_administration
+    - group.paloalto_log_management
