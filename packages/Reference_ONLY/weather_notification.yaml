@@ -1,0 +1,79 @@
+###############################################################################
+#   @author         :   Trent Stanton
+#   @date           :   25/02/2018
+#   @package        :   BOM Weather Notification
+#   @description    :   Morning and Evening weather notification utilising BOM.
+#   @url            :   https://community.home-assistant.io/t/weather-forecast-for-australia-using-bom-website/14794
+###############################################################################
+
+sensor:
+  # API Stream Sensor
+  - platform: api_streams
+  
+  # Scrape sensor for BOM weather forecasts
+  - platform: scrape
+    resource: http://www.bom.gov.au/vic/forecasts/melbourne.shtml
+    name: Melbourne summary
+    select: 'p:nth-of-type(4)'
+    # unit_of_measurement: 'Nil'
+  
+  - platform: scrape
+    resource: http://www.bom.gov.au/vic/forecasts/melbourne.shtml
+    name: Melbourne UV forecast
+    select: 'p:nth-of-type(5)'
+    # unit_of_measurement: 'Nil'
+  
+  - platform: scrape
+    resource: http://www.bom.gov.au/vic/forecasts/melbourne.shtml
+    name: Melbourne forecast line3
+    select: 'p:nth-of-type(6)'
+    # unit_of_measurement: 'Nil'
+  
+  - platform: openweathermap
+    api_key: !secret openweathermap_api
+    forecast: 0
+    monitored_conditions:
+      - weather
+      - clouds
+      - rain
+input_boolean:
+  disable_morning_notification:
+    name: Disable Morning Notification
+    initial: off
+    icon: mdi:weather-sunset-up
+  disable_afternoon_notification:
+    name: Disable Afternoon Notification
+    initial: off
+    icon: mdi:weather-sunset-down
+
+###############################################################################
+#                               Automations
+###############################################################################
+automation:
+  - alias: 'Send notification when sun rises'
+    trigger:
+    - platform: sun
+      event: sunrise
+      offset: '+00:30:00'
+    condition:
+    - condition: state
+      entity_id: input_boolean.disable_morning_notification
+      state: 'off'
+    action:
+    - service: notify.trent
+      data:
+        message: "Good morning! Forecast: {{ states('sensor.weather_summary') }}, temp {{ states('sensor.weather_daily_low_temperature') }} - {{ states('sensor.weather_daily_high_temperature') }}°C.  {{ states('sensor.melbourne_uv_forecast') }}. {{ states('sensor.melbourne_forecast_line3') }}. Now: {{ states('sensor.weather_temperature') }}°c {{ states('sensor.owm_condition') }}, {{ states('sensor.owm_rain') }}"  
+  
+  - alias: 'Send notification when sun sets'
+    trigger:
+    - platform: sun
+      event: sunset
+      offset: '+00:00:00'
+    condition:
+    - condition: state
+      entity_id: input_boolean.disable_afternoon_notification
+      state: 'off'
+    action:
+    - service: notify.trent
+      data:
+        message: "The sun has set. Forecast: {{ states('sensor.weather_summary') }}, temp {{ states('sensor.weather_daily_low_temperature') }} - {{ states('sensor.weather_daily_high_temperature') }}°c  Now: {{ states('sensor.weather_temperature') }}°C. {{ states('sensor.owm_condition') }}, {{ states('sensor.owm_rain') }}"

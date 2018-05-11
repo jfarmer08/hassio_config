@@ -1,0 +1,94 @@
+###############################################################################
+#   @author         :   Trent Stanton
+#   @date           :   24/02/2018
+#   @package        :   Harmony TV Activity Control
+#   @description    :   Control Harmony TV Activities
+#   @url            :   
+###############################################################################
+
+group:
+  harmonytv:
+    control: hidden
+    name: Harmony Remote
+    entities:
+      - sensor.harmony_activity
+      - input_select.harmony
+
+input_select:
+  harmony:
+    name: Harmony Control
+    options:
+      - Select Input
+      - Watch TV
+      - Watch Plex
+      - Watch Chromecast
+      - Play Retropie
+      - Play Wii U
+      - Power Off
+    icon: mdi:remote
+
+sensor:
+  - platform: template
+    sensors:
+      harmony_activity:
+        friendly_name: 'Harmony Activity'
+        value_template: '{{ states.remote.living_room.attributes.current_activity }}'
+        icon_template: >-
+          {% if is_state("states.remote.living_room.attributes.current_activity", "Watch TV") %}
+            mdi:television-box
+          {% elif is_state("states.remote.living_room.attributes.current_activity", "Watch Plex") %}
+            mdi:plex
+          {% elif is_state("states.remote.living_room.attributes.current_activity", "Watch Chromecast") %}
+            mdi:google-chrome
+          {% elif is_state("states.remote.living_room.attributes.current_activity", "Play Retropie") %}
+            mdi:gamepad-variant
+          {% elif is_state("states.remote.living_room.attributes.current_activity", "Play Wii U") %}
+            mdi:wiiu
+          {% else %}
+            mdi:monitor
+          {% endif %}
+###############################################################################
+#                               Automations
+###############################################################################
+automation:
+  - alias: Start Harmony Activity
+    hide_entity: True
+    trigger:
+    - platform: state
+      entity_id: input_select.harmony
+      from: 'Select Input'
+    action:
+    - service: remote.turn_on
+      entity_id: remote.living_room
+      data_template:
+        activity: >
+          {% if is_state("input_select.harmony", "Watch TV") %}
+            26109474
+          {% elif is_state("input_select.harmony", "Watch Plex") %}
+            26117754
+          {% elif is_state("input_select.harmony", "Watch Chromecast") %}
+            26118358
+          {% elif is_state("input_select.harmony", "Play Retropie") %}
+            26286901
+          {% elif is_state("input_select.harmony", "Play Wii U") %}
+            26287096
+          {% else %}
+          {% endif %}
+    - service: input_select.select_option
+      entity_id: input_select.harmony
+      data_template:
+        option: "Select Input"
+
+  - alias: Stop Harmony Activity
+    hide_entity: True
+    trigger:
+    - platform: state
+      entity_id: input_select.harmony
+      to: 'Power Off'
+    action:
+    - service: remote.turn_off
+      entity_id: remote.living_room
+    - service: input_select.select_option
+      entity_id: input_select.harmony
+      data_template:
+        option: "Select Input"  

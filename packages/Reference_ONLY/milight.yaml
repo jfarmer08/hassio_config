@@ -1,0 +1,105 @@
+###############################################################################
+#   @author         :   Trent Stanton
+#   @date           :   7/05/2018
+#   @package        :   MiLight / Limitless LED
+#   @description    :   MiLight Setup and Automations inc. Remote Forwarder,Auto Entryway Light, Auto Entry Light
+#   @url            :   
+###############################################################################
+input_boolean:
+  disable_entry_light_trent_home:
+    name: Disable Entry Light When Trent Home
+    initial: off
+    icon: mdi:home
+  disable_entryway_light_frontdoor:
+    name: Disable Entryway Light When Frontdoor Open
+    initial: off
+    icon: mdi:home
+
+light:
+# MILIGHT LED MQTT
+# Commands:  milight/commands/:device_id/:device_type/:group_id
+# Updates: milight/commands/:device_id/:device_type/:group_id
+  - platform: mqtt_json
+    name: "Entryway"
+    command_topic: milight/commands/0x11/rgb_cct/1
+    state_topic: milight/states/0x11/rgb_cct/1
+    color_temp: true
+    rgb: true
+    brightness: true
+    effect: true
+  
+  - platform: mqtt_json
+    name: "Entry"
+    command_topic: milight/commands/0x11/rgb_cct/2
+    state_topic: milight/states/0x11/rgb_cct/2
+    color_temp: true
+    rgb: true
+    brightness: true
+    effect: true
+
+###############################################################################
+#                               Automations
+###############################################################################
+automation:
+  - alias: MiLight Remote Forwarder
+    initial_state: True
+    trigger:
+    - platform: mqtt
+      topic: milight/updates/0x21/rgb_cct/+
+    action:
+    - service: mqtt.publish
+      data_template:
+        topic: "milight/commands/0x11/rgb_cct/{{ trigger.topic.split('/')[4] }}"
+        payload_template: >
+          {{ trigger.payload }}
+
+  - alias: Entry Light Trent Arrives Home
+    trigger:
+    - platform: state
+      entity_id: device_tracker.google_maps_109209758211303121867
+      to: home
+    - platform: state
+      entity_id: device_tracker.rachels_iphone
+      to: home
+    condition:
+      condition: and
+      conditions:
+      - condition: sun
+        after: sunset
+        after_offset: -0:30:00
+      - condition: state
+        entity_id: light.entry
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.disable_entry_light_trent_home
+        state: 'off'
+    action:
+    - service: light.turn_on
+      entity_id: light.entry
+    - delay: '00:10:00'
+    - service: light.turn_off
+      entity_id: light.entry
+
+  - alias: Entryway Light Front Door
+    trigger:
+    - platform: state 
+      entity_id: binary_sensor.door_window_sensor_158d00019f3211
+      to: 'on'
+    condition:
+      condition: and
+      conditions:
+      - condition: sun
+        after: sunset
+        after_offset: -0:30:00
+      - condition: state
+        entity_id: light.entryway
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.disable_entryway_light_frontdoor
+        state: 'off'
+    action:
+    - service: light.turn_on
+      entity_id: light.entryway
+    - delay: '00:10:00'
+    - service: light.turn_off
+      entity_id: light.entryway  
