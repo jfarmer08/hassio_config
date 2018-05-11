@@ -1,0 +1,31 @@
+############################################################
+#
+# Scenes
+#
+############################################################
+
+############################################################
+#
+# Living Room Light Full Brightness
+#
+############################################################
+
+- name: Living Room Light Full
+  entities:
+    light.living_room:
+      state: on
+      brightness_pct: 100
+      color_temp: 345
+
+############################################################
+#
+# All Lights Full Brightness
+#
+############################################################
+
+- name: All Lights Full Reset
+  entities:
+    group.all_lights:
+      state: on
+      brightness_pct: 100
+      color_temp: 345

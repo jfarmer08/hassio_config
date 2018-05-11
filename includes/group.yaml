@@ -1,0 +1,154 @@
+############################################################
+#
+# Home Assistant Group
+#
+############################################################
+
+default_view:
+  view: yes
+  name: Home
+  icon: mdi:home
+  entities:
+    - group.weather
+    - group.media_living_room_home
+    - group.media_living_room_tv
+    - group.media_living_room
+    - group.media_bed_room
+    - group.media_bedroom_speaker
+    - group.media_outside
+    - group.media_spotify
+    - group.harmonytv
+    - group.radio
+    - group.family
+    - group.scripts
+home_view:
+  view: yes
+  icon: mdi:security-home
+  entities:
+    - group.airconditioner
+    - group.ac_scheduler
+    - group.bedroomfan
+    - group.robot_vacuum
+security_view:
+  view: yes
+  icon: mdi:cctv
+  entities:
+    - group.cameras
+    - group.security
+    - group.doorandwindowsensors
+lights_view:
+  view: yes
+  icon: mdi:lightbulb
+  entities:
+    - group.lights
+    - group.switches
+info_view:
+  view: yes
+  icon: mdi:settings
+  entities:
+    - group.infolinks
+    - group.network
+    - group.synology
+    - group.washing_machine
+    - group.ups
+    - group.automation_override
+#    - group.mediaplayer_dimmer_livingroom
+    - group.fkiosk
+    - group.multisensor
+    - group.battery_levels
+    - group.trash_schedule
+    - group.recycle_schedule
+    - group.projector_room_remote
+    - group.speech_functions
+# Groups
+family:
+  name: Family
+  control: hidden
+  entities:
+    - device_tracker.google_maps_109209758211303121867
+    - device_tracker.rachels_iphone
+scripts:
+  name: Scripts
+  control: hidden
+  entities:
+    - script.good_night
+    - script.start_air_conditioner
+    - script.stop_air_conditioner
+    - script.start_fan
+    - script.stop_fan
+cameras:
+  name: Cameras
+  control: hidden
+  entities:
+    - camera.front_door
+    - camera.back_door
+lights:
+  name: Lights
+  entities:
+    - light.entry
+    - light.entryway
+    - switch.livingroom_light
+    - switch.kitchen_light
+    - light.trent_bedside
+    - light.rachel_bedside
+    - light.study_desk_lamp
+switches:
+  name: Switches
+  entities:
+    - switch.living_room_lamp
+    - switch.outside_heater
+infolinks:
+  name: Links
+  control: hidden
+  entities:
+    - weblink.router
+    - weblink.synology
+    - weblink.HADashboard
+    - weblink.surveillance_station
+    - weblink.nzb_get
+    - weblink.sonarr
+    - weblink.radarr
+automation_override:
+  name: Automation Override
+  control: hidden
+  entities:
+    - input_boolean.guest_mode
+    - input_boolean.alert_mode
+    - input_boolean.speech_notifications
+    - input_boolean.trash_reminders
+    - input_boolean.disable_autolock_front_door
+    - input_boolean.disable_current_temperature_notification
+    - input_boolean.disable_morning_notification
+    - input_boolean.disable_afternoon_notification
+    - input_boolean.disable_unexpected_motion_notification
+    - input_boolean.disable_device_tampering_notification
+    - input_boolean.disable_washing_machine_notification
+    - input_boolean.disable_dustbin_notification
+    - input_boolean.disable_entry_light_trent_home
+    - input_boolean.disable_entryway_light_frontdoor
+multisensor:
+  name: Multisensors
+  entities:
+    - sensor.fibaro_system_fgms001zw5_motion_sensor_temperature
+#    - sensor.fibaro_system_fgms001zw5_motion_sensor_sourcenodeid
+    - sensor.fibaro_system_fgms001zw5_motion_sensor_luminance
+    - sensor.fibaro_system_fgms001zw5_motion_sensor_seismic_intensity
+#    - sensor.fibaro_system_fgms001zw5_motion_sensor_general
+#    - sensor.fibaro_system_fgms001zw5_motion_sensor_burglar
+    - binary_sensor.motion
+    - binary_sensor.tampering
+    - binary_sensor.motion_sensor_158d000165627b
+    - sensor.temperature_158d0001a2e878
+    - sensor.humidity_158d0001a2e878
+projector_room_remote:
+  name: Projector Room Remote
+  control: hidden
+  entities:
+    - switch.projector_power
+    - switch.reciever_power
+    - switch.reciever_volume__2
+    - switch.reciever_volume_
+    - switch.reciever_hdmi_1
+    - switch.reciever_hdmi_2
+    - switch.reciever_hdmi_3
+    - switch.reciever_hdmi_4

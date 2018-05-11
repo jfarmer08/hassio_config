@@ -1,0 +1,68 @@
+############################################################
+#
+# Home Assistant Switch
+#
+############################################################
+
+# Broadlink AC Switches
+- platform: broadlink
+  host: !secret broadlink_sw1_ip
+  mac: '34:EA:34:F5:E4:AC'
+  type: spmini2
+  friendly_name: 'Living Room Lamp'
+- platform: broadlink
+  host: !secret broadlink_sw2_ip
+  mac: '34:EA:34:F5:E4:B0'
+  type: spmini2
+  friendly_name: 'Switch 2'
+- platform: broadlink
+  host: !secret broadlink_sw3_ip
+  mac: '34:EA:34:F5:E1:18'
+  type: spmini2
+  friendly_name: 'Switch 3'
+- platform: broadlink
+  host: !secret broadlink_sw4_ip
+  mac: '34:EA:34:F5:E4:F7'
+  type: spmini2
+  friendly_name: 'Outside Heater'
+
+# Broadlink Mini IR Control
+- platform: broadlink
+  host: !secret broadlink_rm1_ip
+  mac: '34:EA:34:43:F4:76'
+  friendly_name: 'Projector Room Remote'
+  timeout: 15
+  type: rm_mini
+  switches:
+    projector_power:
+      friendly_name: "Projector Power"
+      command_on: 'JgBQAQABEYsQEw8TEBMPExA1DzYPNRA1D4wPNg8TEBMPExATDxMPNg8UDwADtgABEYwPEw8UDxMPFA81EDUPNg81EIsQNQ8TEBMPExATDxMQNQ8UDwADtwABEYsQEw8TEBMPExA1DzYPNRA1D4wPNg8TDxQPEw8UDxMPNg8TEAADtgABEYsQEw8TEBMPExA1DzYPNg81EIsPNg8TEBMPExATDxMQNQ8TEAADtwABEYsQEw8TDxQPEw82DzYPNRA1D4wPNg8TDxQPEw8UDxMPNg8TDwADtwABEYsQEw8TEBMPExA1DzYPNRA1D4wPNg8TDxQPEw8UDxMPNg8TEAADtwABEooQExASEBMQEhA1EDQRNBE0EIsQNBESEBIREhASERIQNRASEAADtgABE4kSEREREhERERIzETQRMxIzEYoRNBEREhERERIRERERNBEREgANBQAAAAAAAAAA'
+      command_off: 'JgBQAQABEYsQEw8TEBMPExA1DzYPNg81D4wPFA81EBMPExATDxMPNg8TEAADtgABEYwPExATDxMPFA81EDUPNg81EIsQEw81EBMPExATDxMQNQ8UDwADtwABEYsQEw8TEBMPExA1DzYPNRA1D4wPExA1DxQPEw8UDxMPNg8TEAADtgABEYwPEw8UDxMPExA1DzYPNg81EIsPFA81EBMPExATDxMQNQ8UDwADtwABEYsQEw8TEBMPEw82DzYPNRA1D4wPExA1DxQPEw8UDxMPNg8TEAADtgABEYsQEw8TEBMPExA1DzYPNg81EIsPFA81EBMPExATDxMQNQ8TEAADtwABEYsQEw8TDxQPEw82EDUQNBE0EIsQEhE0EBMQEhATEBIQNRASEAADtgABEooREhASERIQEhE0EDUQNBE0EYoQEw81ERIPEw8UDxMPNg8TEAANBQAAAAAAAAAA'
+    reciever_power:
+      friendly_name: "Reciever Power"
+      command_on: 'JgBYAAABJZQRFBI4EzYTNhM3ETgTNhMSEzYTExITERQRFBMSExITNhMSEzYTExM2ExITNhMSExITNxMSEzYTEhM2ExITNxM2EwAFGQABKEgTAAxIAAEnSRMADQU='
+      command_off: 'JgBYAAABJZQRFBI4EzYTNhM3ETgTNhMSEzYTExITERQRFBMSExITNhMSEzYTExM2ExITNhMSExITNxMSEzYTEhM2ExITNxM2EwAFGQABKEgTAAxIAAEnSRMADQU='
+    reciever_volume_up:
+      friendly_name: "Reciever Volume +"
+      command_on: 'JgBYAAABJ5IUERM3ExITNhQ1FDUUNhQREzYTEhQ1FBETExMSExIUNRQREzYTEhQ2EzYUERMSExIUNRQRFDYUERQRFDUUNRQ2FAAFGAABJ0kUAAxHAAEnSRMADQU='
+    reciever_volume_down:
+      friendly_name: "Reciever Volume -"
+      command_on: 'JgBYAAABJZURFBE4ERQROBE5ETgROBEUETkRFBE4ERQRFBEUERQTNxI3EzYTEhM2EzcSExMSExITEhMSEzYTEhMSEzcTNhM2EwAFGQABJ0kTAAxIAAElSxEADQU='
+    reciever_hdmi1:
+      friendly_name: "Reciever HDMI 1"
+      command_on: 'JgBYAAABJ5ITEhQ2FBETNhQ1FDYUNRMSEzYTEhQ2ExIUERMSExITNhQ1FDYUNRQRExITEhQ2ExITEhMSFBETNhQ1FDYTEhMSFAAFPAABJ0kUAAxHAAEnSRQADQU='
+    reciever_hdmi2:
+      friendly_name: "Reciever HDMI 2"
+      command_on: 'JgAMARJ7EwkUCBQJFQYWBxUMEggUBhQMFAczCRQPDwsRCBINMQoUDA8QDwoUDBEKEREPYRAIFAsTChQpEQYXChMHFgsTDA8OEQkWCBUNDw4QAAHBEQACgRQAAoAVAAKAEgAChBEAAoMRAAKBFQACgREAAoIRAAKDEwACgxIAAoISAAKBFQACfxQAAoETAAKDEwACgRIAAoQPAAKEEgACgBUAAoATAAKBFAACgBUAAn8UAAKAEwACghIAAoITAAKBEwACgRQAAoETAAKDEgACgBMAAoIUAAKAFAACghEAAoYQAAKCEQACgRMAAoMRAAKEEAAChBEAAoMSAAKBEwACgRQAAoQPAAKEEQACgxEADQUAAAAAAAAAAAAAAAA='
+    reciever_hdmi3:
+      friendly_name: "Reciever HDMI 3"
+      command_on: 'JgBQAAABJZURFBE4ERQROBE5ETgROBEUETkRFBE4ERQRFBEUERQROBE5ERQROBE4ERQRFRE4ERQRFBE4ERQRFBE5ETgRFBEUEQAFPwABJUsRAA0FAAAAAAAAAAA='
+    reciever_hdmi4:
+      friendly_name: "Reciever HDMI 4"
+      command_on: 'JgBQAAABJZURFBE4ERQRORI3ETgTNhMSEzcTEhM2ExITEhMSExITNxITExITEhMSEzYTEhM3EhMTNhM2EzYUNhMSEzYTEhMSEwAFPQABJ0kTAA0FAAAAAAAAAAA='
+
+# Test NZBGet Switch
+- platform: nzbget
+  host: !secret nzbget_ipaddress
+  username: !secret nzbget_username
+  password: !secret nzbget_password
