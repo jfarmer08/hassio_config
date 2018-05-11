@@ -1,0 +1,304 @@
+###############################################################################
+#   @author         :   Trent Stanton
+#   @date           :   10/03/2018
+#   @package        :   Display Media Players
+#   @description    :   Display / Hide Media Players from the Home Assistant Default View when not being used.
+#   @url            :   
+###############################################################################
+homeassistant:
+  customize:
+    media_player.living_room_home:
+      friendly_name: Living Room Home
+    media_player.tv_ua55ju6400:
+      friendly_name: Living Room TV
+    media_player.living_room:
+      friendly_name: Living Room Chromecast
+    media_player.outside:
+      friendly_name: Outside Chromecast Audio
+    media_player.bed_room:
+      friendly_name: Bed Room Chromecast
+
+group:
+  media_living_room_home:
+    name: Media Living Room Home
+    entities:
+      - media_player.living_room_home
+  media_living_room_tv:
+    name: Media Living TV
+    entities:
+      - media_player.tv_ua55ju6400
+  media_living_room:
+    name: Media Living Room
+    entities:
+      - media_player.living_room
+  media_bed_room:
+    name: Media Bed Room
+    entities:
+      - media_player.bed_room
+  media_bedroom_speaker:
+    name: Media Bed Room Speaker
+    entities:
+      - media_player.bedroom_speaker
+  media_outside:
+    name: Media Outside
+    entities:
+      - media_player.outside
+  media_spotify:
+    name: Media Spotify
+    entities:
+      - media_player.spotify
+
+###############################################################################
+#                               Automations
+###############################################################################
+automation:
+
+## Media Player Living Room Home
+# Hide Media Player
+
+  - alias: 'Hide media_player.living_room_home while not playing'
+    hide_entity: true
+    trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: media_player.living_room_home
+      to: 'idle'
+    - platform: state
+      entity_id: media_player.living_room_home
+      to: 'off'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_living_room_home
+      data:
+        visible: False
+  # Show Media Player
+
+  - alias: 'Show media_player.office while playing'
+    hide_entity: true
+    trigger:
+    - platform: state
+      entity_id: media_player.living_room_home
+      to: 'playing'
+    - platform: state
+      entity_id: media_player.living_room_home
+      to: 'paused'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_living_room_home
+      data:
+        visible: True
+  
+  ## Media Player Living Room TV
+  # Hide Media Player
+
+  - alias: 'Hide media_player.tv_ua55ju6400 while not playing'
+    hide_entity: true
+    trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: media_player.tv_ua55ju6400
+      to: 'idle'
+    - platform: state
+      entity_id: media_player.tv_ua55ju6400
+      to: 'off'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_living_room_tv
+      data:
+        visible: False
+  # Show Media Player
+
+  - alias: 'Show media_player.tv_ua55ju6400 while playing'
+    hide_entity: true
+    trigger:
+    - platform: state
+      entity_id: media_player.tv_ua55ju6400
+      to: 'playing'
+    - platform: state
+      entity_id: media_player.tv_ua55ju6400
+      to: 'paused'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_living_room_tv
+      data:
+        visible: True
+
+## Media Player Living Room
+# Hide Media Player
+  - alias: 'Hide media_player.living_room while not playing'
+    hide_entity: true
+    trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: media_player.living_room
+      to: 'idle'
+    - platform: state
+      entity_id: media_player.living_room
+      to: 'off'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_living_room
+      data:
+        visible: False
+# Show Media Player
+  
+  - alias: 'Show media_player.living_room while playing'
+    hide_entity: true
+    trigger:
+    - platform: state
+      entity_id: media_player.living_room
+      to: 'playing'
+    - platform: state
+      entity_id: media_player.living_room
+      to: 'paused'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_living_room
+      data:
+        visible: True
+
+## Media Player Bed Room
+# Hide Media Player
+  - alias: 'Hide media_player.bed_room while not playing'
+    hide_entity: true
+    trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: media_player.bed_room
+      to: 'idle'
+    - platform: state
+      entity_id: media_player.bed_room
+      to: 'off'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_bed_room
+      data:
+        visible: False
+# Show Media Player
+
+  - alias: 'Show media_player.bed_room while playing'
+    hide_entity: true
+    trigger:
+    - platform: state
+      entity_id: media_player.bed_room
+      to: 'playing'
+    - platform: state
+      entity_id: media_player.bed_room
+      to: 'paused'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_bed_room
+      data:
+        visible: True
+
+## Media Player Bed Room Speaker
+# Hide Media Player
+
+  - alias: 'Hide media_player.bedroom_speaker while not playing'
+    hide_entity: true
+    trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: media_player.bedroom_speaker
+      to: 'idle'
+    - platform: state
+      entity_id: media_player.bedroom_speaker
+      to: 'off'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_bedroom_speaker
+      data:
+        visible: False
+# Show Media Player
+
+  - alias: 'Show media_player.bedroom_speaker while playing'
+    hide_entity: true
+    trigger:
+    - platform: state
+      entity_id: media_player.bedroom_speaker
+      to: 'playing'
+    - platform: state
+      entity_id: media_player.bedroom_speaker
+      to: 'paused'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_bedroom_speaker
+      data:
+        visible: True
+
+## Media Player Outside
+# Hide Media Player
+
+  - alias: 'Hide media_player.outside while not playing'
+    hide_entity: true
+    trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: media_player.outside
+      to: 'idle'
+    - platform: state
+      entity_id: media_player.outside
+      to: 'off'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_outside
+      data:
+        visible: False
+# Show Media Player
+
+  - alias: 'Show media_player.outside while playing'
+    hide_entity: true
+    trigger:
+    - platform: state
+      entity_id: media_player.outside
+      to: 'playing'
+    - platform: state
+      entity_id: media_player.outside
+      to: 'paused'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_outside
+      data:
+        visible: True
+
+## Media Player Spotify
+# Hide Media Player
+
+  - alias: 'Hide media_player.spotify while not playing'
+    hide_entity: true
+    trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: media_player.spotify
+      to: 'idle'
+    - platform: state
+      entity_id: media_player.spotify
+      to: 'off'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_spotify
+      data:
+        visible: False
+# Show Media Player
+
+  - alias: 'Show media_player.spotify while playing'
+    hide_entity: true
+    trigger:
+    - platform: state
+      entity_id: media_player.spotify
+      to: 'playing'
+    - platform: state
+      entity_id: media_player.spotify
+      to: 'paused'
+    action:
+    - service: group.set_visibility
+      entity_id: group.media_spotify
+      data:
+        visible: True  
