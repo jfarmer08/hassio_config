@@ -131,5 +131,5 @@ device_tracker: !include includes/device_trackers.yaml
 panel_custom: !include includes/panel_custom.yaml
 # View all events in a logbook
 logbook: !include includes/logbook.yaml
-image_processing: !include includes/image_processing.yaml
+#image_processing: !include includes/image_processing.yaml
 
