@@ -3,7 +3,54 @@
 #                                 BINARY SENSORS
 #
 ###############################################################################
-  - platform: octoprint
-    monitored_conditions:
-      - Printing
-      - Printing Error
+- platform: template
+  sensors:
+    pickup_garbage:
+      value_template: >-
+        {%- if 'arbage' in states('sensor.waste_pickup_type') -%}
+        True
+        {%- else -%}
+        False
+        {%- endif %}
+      entity_id:
+        - sensor.waste_pickup_type
+    pickup_bluebox:
+      value_template: >-
+        {%- if 'lue box' in states('sensor.waste_pickup_type') -%}
+        True
+        {%- else -%}
+        False
+        {%- endif %}
+      entity_id:
+        - sensor.waste_pickup_type
+    pickup_greencart:
+      value_template: >-
+        {%- if 'reen cart' in states('sensor.waste_pickup_type') -%}
+        True
+        {%- else -%}
+        False
+        {%- endif %}
+      entity_id:
+        - sensor.waste_pickup_type
+    pickup_bulkwaste:
+      value_template: >-
+        {%- if 'ulk waste' in states('sensor.waste_pickup_type') -%}
+        True
+        {%- else -%}
+        False
+        {%- endif %}
+      entity_id:
+        - sensor.waste_pickup_type
+    pickup_yardwaste:
+      value_template: >-
+        {%- if 'ard waste' in states('sensor.waste_pickup_type') -%}
+        True
+        {%- else -%}
+        False
+        {%- endif %}
+      entity_id:
+        - sensor.waste_pickup_type
+- platform: octoprint
+  monitored_conditions:
+    - Printing
+    - Printing Error

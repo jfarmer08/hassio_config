@@ -3,64 +3,20 @@
 #                                DEVICE TRACKERS
 #
 ###############################################################################
+  - platform: ddwrt
+    host: 192.168.1.1
+    username: root
+    password: admin
+    new_device_defaults:
+      track_new_devices: True
+      hide_if_away: False
+  - platform: ddwrt
+    host: 192.168.1.5
+    username: root
+    password: admin
+  - platform: ddwrt
+    host: 192.168.1.2
+    username: root
+    password: admin
   - platform: nmap_tracker
     hosts: 192.168.1.1/24
-    home_interval: 10
-  - platform: ping
-    hosts:
-      computersalotto: !secret computersalotto
-      tabletbagno: !secret tabletbagno
-      tabletcucina: !secret tabletcucina
-      tabletcucina2: !secret tabletcucina2
-      smartphonesalotto: !secret smartphonesalotto
-      smartphonesalotto3: !secret smartphonesalotto3
-      zidoo: !secret zidoo
-      google: !secret google
-#******************************************************************************
-      chromecast_salotto: !secret chromecast_salotto
-      chromecast_cucina: !secret chromecast_cucina
-      chromecast_bagno: !secret chromecast_bagno
-#******************************************************************************
-      maurolavoro: !secret maurolavoro
-      mauropersonale: !secret mauropersonale
-      maxpersonale: !secret maxpersonale
-      maxlavoro: !secret maxlavoro
-#******************************************************************************
-      nabaztag: !secret nabaztag
-      netgear_repeater: !secret netgear_repeater
-#******************************************************************************
-      ring: !secret ring
-      ring_chime_pro: !secret ring_chime_pro
-      tp_link: !secret tp_link
-#******************************************************************************
-      broadlink_rm_pro: !secret broadlink_rm_pro
-      broadlink_rm_pro_2: !secret broadlink_rm_pro_2
-      broadlink_rm_mini: !secret broadlink_rm_mini
-      broadlink_sp_mini_1: !secret broadlink_sp_mini_1
-      broadlink_sp_mini_2: !secret broadlink_sp_mini_2
-      broadlink_sp_mini_3: !secret broadlink_sp_mini_3
-      broadlink_sp_mini_4: !secret broadlink_sp_mini_4
-      broadlink_outlet: !secret broadlink_outlet
-      broadlink_a1: !secret broadlink_a1
-      broadlink_s1: !secret broadlink_s1
-      led_strip: !secret led_strip
-#******************************************************************************
-      mediaaccess_tg589vn_v3: !secret mediaaccess_tg589vn_v3 
-      desktop_win10: !secret computersalotto
-      hassio: !secret hassio
-      condizionatore_camera: !secret condizionatore_camera
-      condizionatore_salotto: !secret condizionatore_salotto
-      sky_hd: !secret sky_hd
-      slingbox: !secret slingbox
-      multipresa_wifi: !secret multipresa_wifi
-      dash_button_brabantia: !secret dash_button_brabantia
-      dash_button_pellini: !secret dash_button_pellini
-      dash_button_langelica: !secret dash_button_langelica
-      dash_button_biorepair_1: !secret dash_button_biorepair_1
-      dash_button_biorepair_2: !secret dash_button_biorepair_2
-      dash_button_sholl_1: !secret dash_button_sholl_1
-      dash_button_sholl_2: !secret dash_button_sholl_2
-      dash_button_nescafe_1: !secret dash_button_nescafe_1
-      dash_button_lor_1: !secret dash_button_lor_1
-      dash_button_barilla_1: !secret dash_button_barilla_1
-#******************************************************************************

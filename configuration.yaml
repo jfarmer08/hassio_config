@@ -40,6 +40,9 @@ updater:
 # Discover some devices automatically
 discovery:
 
+# Might not need
+ios:
+
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
@@ -48,6 +51,11 @@ history:
 
 # View all events in a logbook
 logbook:
+
+# Purge Database Interval
+recorder:
+  purge_interval: 2
+  purge_keep_days: 14
 
 # Enables a map showing the location of tracked devices
 map:
@@ -66,9 +74,6 @@ cloud:
 websocket_api:
 api:
 system_log:
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
 
 octoprint:
   host: 192.168.1.119
@@ -80,24 +85,6 @@ nest:
   client_id: !secret nest_client_id
   client_secret: !secret nest_client_secret
 
-device_tracker:
-  - platform: ddwrt
-    host: 192.168.1.1
-    username: root
-    password: admin
-    new_device_defaults:
-      track_new_devices: True
-      hide_if_away: False
-  - platform: ddwrt
-    host: 192.168.1.5
-    username: root
-    password: admin
-  - platform: ddwrt
-    host: 192.168.1.2
-    username: root
-    password: admin
-  - platform: nmap_tracker
-    hosts: 192.168.1.1/24
 
 zwave:
   usb_path: /dev/ttyUSB0
@@ -110,4 +97,8 @@ panel_iframe: !include includes/panel_iframes.yaml
 android_ip_webcam: !include includes/android_ip_webcams.yaml
 camera: !include includes/cameras.yaml
 sensor: !include includes/sensors.yaml
+group: !include includes/groups.yaml
+automation: !include includes/automations.yaml
+script: !include includes/scripts.yaml
+device_tracker: !include includes/device_trackers.yaml
 

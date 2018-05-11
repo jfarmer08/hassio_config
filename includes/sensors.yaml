@@ -89,4 +89,17 @@
       - 'beat'
   - platform: worldclock
     time_zone: America/New_York
-
+#******************************Trash Pick up*************************************
+  - platform: template
+    sensors:
+      waste_pickup_day:
+        friendly_name: Waste Pickup Day
+        value_template: >
+          {% set pickupday = strptime(states.calendar['CALENDAR_NAME'].attributes.start_time, "%Y-%m-%d %H:%M:%S").strftime("%A") %}
+          {% if pickupday == now().strftime("%A") %}
+            - TODAY -
+          {% elif pickupday == (as_timestamp(now())+ (86400)) | timestamp_custom("%A",true) %}
+            TOMORROW
+          {% else %}
+            {{ pickupday }}
+          {% endif %}
