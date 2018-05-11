@@ -49,9 +49,6 @@ conversation:
 # Enables support for tracking state changes over time
 history:
 
-# View all events in a logbook
-logbook:
-
 # Purge Database Interval
 recorder:
   purge_interval: 2
