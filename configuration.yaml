@@ -60,6 +60,10 @@ recorder:
 # Enables a map showing the location of tracked devices
 map:
 
+packages: 
+  pack_1: !include trash_recycle.yaml
+  pack_2: !include nest_thermostat.yaml
+
 # Track the sun
 sun:
 
@@ -81,13 +85,32 @@ octoprint:
   bed: true
   number_of_tools: 2
 
-nest:
-  client_id: !secret nest_client_id
-  client_secret: !secret nest_client_secret
-
-
 zwave:
   usb_path: /dev/ttyUSB0
+
+############
+# Additional Zones
+############
+zone:
+  name: Home3
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  icon: mdi:server-network
+  radius: 250
+
+zone 2:
+  name: Home2
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  icon: mdi:hospital-building
+  radius: 250
+
+zone 3:
+  name: Home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  icon: mdi:home
+  radius: 150
 
 media_player: !include includes/media_players.yaml
 ifttt: !include includes/ifttt.yaml
@@ -102,4 +125,7 @@ automation: !include includes/automations.yaml
 script: !include includes/scripts.yaml
 device_tracker: !include includes/device_trackers.yaml
 panel_custom: !include includes/panel_custom.yaml
+# View all events in a logbook
+logbook: !include includes/logbook.yaml
+image_processing: !include includes/image_processing.yaml
 

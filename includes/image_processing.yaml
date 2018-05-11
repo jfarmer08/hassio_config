@@ -8,6 +8,10 @@
 # Dlib Face Detection
 #
 ############################################################
-platform: dlib_face_detect
-source:
-  - entity_id: camera.front_door
+#If the platform fails to load because it could not install its requirement, install cmake: sudo apt-get install cmake
+- platform: microsoft_face_detect
+    source:
+      - entity_id: camera.front_door
+  - platform: dlib_face_detect
+    source:
+      - entity_id: camera.front_door
