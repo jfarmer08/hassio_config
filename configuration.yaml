@@ -61,7 +61,7 @@ recorder:
 map:
 
 packages: 
-  pack_1: !include trash_recycle.yaml
+  pack_1: !include recycle_trash.yaml
   pack_2: !include nest_thermostat.yaml
   pack_3: !include alarm_clock.yaml
   pack_4: !include homeassistant.yaml
