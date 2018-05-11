@@ -1,0 +1,144 @@
+############################################################
+#
+# Automation Buttons
+#
+############################################################
+
+############################################################
+#
+# Trent Bed Room Button - Turn Trent Bedside Lamp on
+#
+############################################################
+
+- alias: Trent Bed Room Button - Bedside Lamp toggle
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001a21086
+      click_type: single
+  action:
+  - service: light.toggle
+    entity_id: light.trent_bedside
+
+############################################################
+#
+# Trent Bed Room Button - Turn Both Bedside Lamp on
+#
+############################################################
+
+- alias: Trent Bed Room Button - Bedside Lamps on
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001a21086
+      click_type: double
+  action:
+  - service: light.on
+    entity_id: light.trent_bedside
+  - service: light.on
+    entity_id: light.rachel_bedside
+
+############################################################
+#
+# Trent Bed Room Button - Good Night
+#
+############################################################
+
+- alias: Trent Bed Room Button - Good Night
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d0001a21086
+      click_type: hold
+  action:
+  - service: script.turn_on
+    entity_id: script.good_night
+
+############################################################
+#
+# Rachel Bed Room Button - Turn Rachel Bedside Lamp on
+#
+############################################################
+
+- alias: Rachel Bed Room Button - Rachel Bedside Lamp toggle
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d000186e632
+      click_type: single
+  action:
+  - service: light.toggle
+    entity_id: light.rachel_bedside
+
+############################################################
+#
+# Rachel Bed Room Button - Turn Both Bedside Lamp on
+#
+############################################################
+- alias: Rachel Bed Room Button - Bedside Lamp on
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d000186e632
+      click_type: double
+  action:
+  - service: light.on
+    entity_id: light.trent_bedside
+  - service: light.on
+    entity_id: light.rachel_bedside
+
+############################################################
+#
+# Rachel Bed Room Button - Good Night
+#
+############################################################
+
+- alias: Rachel Bed Room Button - Good Night
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.switch_158d000186e632
+      click_type: hold
+  action:
+  - service: script.turn_on
+    entity_id: script.good_night
+
+############################################################
+#
+# Entryway Button Right - Toggle Entry Light.
+#
+############################################################
+
+- alias: Entryway Button Right - Toggle Entry Light
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.wall_switch_right_158d000170ef78
+      click_type: single
+  action:
+  - service: light.toggle
+    entity_id: light.entry
+
+############################################################
+#
+# Entryway Button Left - Toggle Entryway Light.
+#
+############################################################
+
+- alias: Entryway Button Left - Toggle Entryway Light
+  trigger:
+  - platform: event
+    event_type: click
+    event_data:
+      entity_id: binary_sensor.wall_switch_left_158d000170ef78
+      click_type: single
+  action:
+  - service: light.toggle
+    entity_id: light.entryway

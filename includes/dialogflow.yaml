@@ -1,0 +1,9 @@
+############################################################
+#
+# Home Assistant Dialogflow
+#
+############################################################
+intent_script:
+  GetHomeTemperature:
+    speech:
+      text: The temperature at home is {{ states('sensor.fibaro_system_fgms001zw5_motion_sensor_temperature') }} degrees

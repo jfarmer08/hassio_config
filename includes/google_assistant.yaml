@@ -1,0 +1,96 @@
+############################################################
+#
+# Home Assistant Google Assistant
+#
+############################################################
+project_id: !secret gh_project_id
+client_id: !secret gh_client_id
+access_token: !secret gh_access_token
+expose_by_default: true
+exposed_domains:
+  - Switch
+  - Light
+  - script
+  - scene
+entity_config:
+  light.entry:
+    name: Entry
+    aliases:
+      - Entry Light
+      - Entry Lights
+      - Front Light
+    room: Entry
+  light.entryway:
+    name: Entryway
+    aliases:
+      - Entryway Light
+      - Entryway Lights
+    room: Entryway
+  switch.livingroom_light:
+    name: Living Room
+    aliases:
+      - Living Room Light
+      - Living Room Lights
+      - Living Room Switch
+      - Family Room Light
+      - Family Room Switch
+    room: Living Room
+  switch.kitchen_light:
+    name: Kitchen
+    aliases:
+      - kitchen Light
+      - kitchen Lights
+      - kitchen Switch
+    room: Kitchen
+  light.trent_bedside:
+    name: Trent Bedside
+    aliases:
+      - Trent Bedside Light
+      - Trents Bedside Light
+      - Trent Bedside Lamp
+      - Trents Bedside Lamp
+      - Trent Lamp
+      - Trents Lamp
+      - Trent Bedside Switch
+      - Trents Bedside Switch
+    room: Bedroom
+  light.rachel_bedside:
+    name: Rachel Bedside
+    aliases:
+      - Rachel Bedside Light
+      - Rachels Bedside Light
+      - Rachel Bedside Lamp
+      - Rachels Bedside Lamp
+      - Rachel Lamp
+      - Rachels Lamp
+      - Rachel Bedside Switch
+      - Rachels Bedside Switch
+    room: Bedroom
+  light.study_desk_lamp:
+    name: Study Desk Lamp
+    aliases:
+      - Study Desk Light
+      - Office Desk Light
+      - Study Desk Lamp
+      - Office Desk Lamp
+      - Study Lamp
+      - Office Lamp
+      - Study Light
+      - Office Light
+    room: Study
+  switch.living_room_lamp:
+    name: Living Room Lamp
+    aliases:
+      - family room Lamp
+    room: Living Room
+  switch.outside_heater:
+    name: Outside Heater
+    aliases:
+      - Outside Heating
+      - Outdoor Heater
+      - Outdoor Heating
+      - Deck Heater
+      - Deck Heating
+      - Decking Heater
+      - Decking Heating
+    room: Outside
