@@ -1,0 +1,45 @@
+# The following script runs when no one is home. It excludes some lights
+# and switches like front porch and backyard lights...etc for safety reasons.
+###############################################################################
+homeassistant:
+  customize:
+    script.all_indoor_lights_off:
+      friendly_name: All Indoor Lights & Switches OFF
+
+script:
+
+  home_mode_away:
+    sequence:
+      - service: script.all_indoor_lights_off
+      - service: script.set_nest_away
+      - service: alarm_control_panel.alarm_arm_away
+        data:
+          entity_id: alarm_control_panel.simplisafe
+      - service: script.notify_me
+        data:
+          message: >
+            No one is at home. Turned indoor lights OFF, and set Thermostat to away mode and your home is secured.
+
+  all_indoor_lights_off:
+    sequence:
+      - service: light.turn_off
+        data_template:
+          entity_id: >
+            {%- for state in states.light if state.entity_id != 'light.gateway_light_34ce008ad65d' -%}
+            {{- "," if not loop.first-}}{{ state.entity_id }}{{-endif-}}
+            {%- endfor -%}
+      - service: switch.turn_off
+        data_template:
+          entity_id: >
+            {%- for state in states.switch if
+                                state.entity_id != 'switch.wemoswitch1' and
+                                state.entity_id != 'switch.wallmote_switch' and
+                                state.entity_id != 'switch.wemobackyardlightswitch' and
+                                state.entity_id != 'switch.frontyard_light' and
+                                state.entity_id != 'switch.dockermon' and
+                                state.entity_id != 'switch.grafana' and
+                                state.entity_id != 'switch.influxdb' and
+                                state.entity_id != 'switch.home_bridge' and
+                                not '_siren_' in state.entity_id -%}
+            {{- "," if not loop.first-}}{{ state.entity_id }}{{-endif-}}
+            {%- endfor -%}
