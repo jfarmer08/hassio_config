@@ -1,0 +1,53 @@
+homeassistant:
+
+  ################################################################################
+  ## CUSTOMIZE
+  ################################################################################
+
+  customize:
+
+    ################################################################################
+    ## NODE ANCHORS
+    ################################################################################
+
+    package.node_anchors:
+      customize: &customize
+        package: 'abode'
+
+      hidden: &hidden
+        <<: *customize
+        hidden: true
+        emulated_hue_hidden: true
+
+################################################################################
+## AUTOMATION ARM ALARM AND TURNOFF LIGHTS WHEN CAR LEAVES
+################################################################################
+
+automation:
+  - id: set_away_mode
+    alias: Set Away Mode
+    initial_state: true
+    trigger:
+      platform: zone
+      entity_id: device_tracker.honda_accord_cpe
+      zone: zone.home
+      event: leave
+    action:
+      service: scene.turn_on
+      entity_id: scene.out_of_the_house
+
+################################################################################
+## DEVICE TRACKER
+################################################################################
+
+device_tracker:
+
+  ################################################################################
+  ## AUTOMATIC
+  ################################################################################
+
+  - platform: automatic
+    client_id: !secret automatic_client_id
+    secret: !secret automatic_secret
+    username: !secret sunnys_email
+    password: !secret automatic_password
