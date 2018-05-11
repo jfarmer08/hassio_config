@@ -1,0 +1,600 @@
+###############################################################################
+#   @author         :   Mahasri Kalavala
+#   @date           :   04/15/2017
+#   @package        :   Weather
+#   @description    :   Nothing But The Weather Stuff!
+###############################################################################
+homeassistant:
+  customize:
+  
+    sun.sun:
+      friendly_name: Sun 
+    sensor.pws_relative_humidity:
+      friendly_name: Humidity
+      homebridge_hidden: true
+    sensor.pws_temp_f:
+      friendly_name: Temperature
+      homebridge_hidden: true
+    sensor.pws_feelslike_f:
+      friendly_name: Feels Like
+      homebridge_hidden: true
+    sensor.pws_wind_mph:
+      friendly_name: Wind Speed
+      icon: mdi:weather-windy
+    sensor.pws_heat_index_f:
+      friendly_name: Heat Index
+      homebridge_hidden: true
+    sensor.pws_visibility_mi:
+      friendly_name: Visibility
+    sensor.pws_weather:
+      friendly_name: Weather
+      homebridge_hidden: true
+    sensor.pws_uv:
+      friendly_name: 'UV Index'
+      icon: mdi:white-balance-sunny
+      homebridge_hidden: true
+      
+    sensor.cold_flu:
+      friendly_name: Cold & Flu
+      hidden: true
+      homebridge_hidden: true
+    sensor.cold_flu_risk:
+      friendly_name: Cold & Flu Risk
+      homebridge_hidden: true
+    sensor.pollen:
+      friendly_name: Pollen
+      hidden: true
+      homebridge_hidden: true
+    sensor.pollen_level:
+      friendly_name: Pollen Level
+      homebridge_hidden: true
+    sensor.waqi_columbus__fairgrounds_ohio:
+      hidden: true
+      homebridge_hidden: true
+    sensor.air_quality:
+      friendly_name: Air Quality    
+      homebridge_hidden: true
+
+    input_boolean.rain_alert:
+      hidden: true
+      homebridge_hidden: true
+    input_boolean.snow_alert:
+      hidden: true
+      homebridge_hidden: true
+    input_boolean.sleet_alert:
+      hidden: true
+      homebridge_hidden: true
+    input_boolean.nice_breeze_alert:
+      hidden: true
+      homebridge_hidden: true
+    input_boolean.moderate_wind_alert:
+      hidden: true
+      homebridge_hidden: true
+    input_boolean.heavy_wind_alert:
+      hidden: true
+      homebridge_hidden: true
+    input_boolean.super_heavy_wind_alert:
+      hidden: true
+      homebridge_hidden: true
+    input_boolean.hurricane_wind_alert:
+      hidden: true
+      homebridge_hidden: true
+    sensor.uv_burn_time:
+      friendly_name: 'Burn Time'
+      icon: mdi:fire      
+      homebridge_hidden: true
+    sensor.wind_direction:
+      icon: mdi:weather-windy-variant
+      homebridge_hidden: true
+    sensor.wind_direction_tts:
+      icon: mdi:weather-windy-variant
+      homebridge_hidden: true
+     
+    group.weather:
+      order: 14
+    group.dark_sky:
+      order: 15
+    group.weather_automations:
+      order: 16
+
+group:
+
+  Weather:
+    entities:
+      - sun.sun
+      - sensor.pws_weather
+      - sensor.pws_temp_f
+      - sensor.pws_feelslike_f
+      - sensor.pws_wind_mph
+      - sensor.pws_heat_index_f
+      - sensor.pws_relative_humidity
+      - sensor.pws_visibility_mi
+      - sensor.pollen
+      - sensor.pollen_level
+      - sensor.cold_flu
+      - sensor.cold_flu_risk
+      - sensor.air_quality
+      - sensor.pws_uv
+      - sensor.uv_burn_time
+      - sensor.pws_alerts
+
+  Dark Sky:
+    entities:
+      - sensor.dark_sky_wind_speed
+      - sensor.dark_sky_wind_bearing
+      - sensor.dark_sky_visibility
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_summary
+      - sensor.dark_sky_pressure
+      - sensor.dark_sky_precip_probability
+      - sensor.dark_sky_precip_intensity
+      - sensor.dark_sky_precip
+      - sensor.dark_sky_ozone
+      - sensor.dark_sky_nearest_storm_distance
+      - sensor.dark_sky_nearest_storm_bearing
+      - sensor.dark_sky_minutely_summary
+      - sensor.dark_sky_icon
+      - sensor.dark_sky_humidity
+      - sensor.dark_sky_hourly_summary
+      - sensor.dark_sky_dew_point
+      - sensor.dark_sky_daily_summary
+      - sensor.dark_sky_daily_max_precip_intensity
+      - sensor.dark_sky_daily_low_temperature
+      - sensor.dark_sky_daily_low_apparent_temperature
+      - sensor.dark_sky_daily_high_temperature
+      - sensor.dark_sky_daily_high_apparent_temperature
+      - sensor.dark_sky_cloud_coverage
+      - sensor.dark_sky_apparent_temperature
+      - sensor.waqi_columbus__fairgrounds_ohio_usa
+      - sensor.wind_direction
+      - sensor.wind_direction_tts
+      - binary_sensor.good_weather_to_fly_drones
+
+  Weather Automations:
+    control: hidden
+    entities:
+      - automation.remind_me_to_enjoy_warm_and_windy_weather
+      - automation.alert_super_heavy_winds
+      - automation.rain_snow_wind_alerts      
+
+  Doppler Weather:
+    entities:
+      - camera.ohio_doppler_weather
+
+camera:
+  - platform: generic
+    name: Ohio Doppler Weather
+    still_image_url: !secret ohio_doppler_weather
+
+
+input_boolean:
+  nice_breeze_alert:
+    name: Nice Breeze Alert
+    initial: off
+  moderate_wind_alert:
+    name: Moderate Wind Alert
+    initial: off
+  heavy_wind_alert:
+    name: heavy Wind Alert
+    initial: off
+  super_heavy_wind_alert:
+    name: Super Heavy Wind Alert
+    initial: off
+  hurricane_wind_alert:
+    name: Hurricane Winds Alert
+    initial: off
+  rain_alert:
+    name: Rain Alert
+    initial: off
+  snow_alert:
+    name: Snow Alert
+    initial: off
+  sleet_alert:
+    name: Sleet Alert
+    initial: off
+
+#
+# Good Weather To Fly Drone?
+# Criteria: 
+#   - Wind Speed must be less than 12 mph 
+#   - No Rain, or Snow
+#   - No Thunderstorms, lightning
+#   - Visiblity must be more than 2 miles
+#   - Temperature must be above 32 degrees Fahrenheit - (avoid risk of batteries being dead in extreme cold temperature)
+#   - Cloud coverage must be above than 30% (I prefer good amount of sunlight or clear sky) - may have to tweak during winters :)
+#
+
+binary_sensor:
+  - platform: template
+    sensors:
+      good_weather_to_fly_drones:
+        friendly_name: Good Weather To Fly Drone?
+        value_template: >-
+          {% if states.sensor.dark_sky_wind_speed.state | round(0) | int > 12 or 
+                states.sensor.dark_sky_precip.state |lower == "rain" or 
+                states.sensor.dark_sky_precip.state |lower == "snow" or
+                states.sensor.dark_sky_visibility.state | round(0) | int < 2 or 
+                states.sensor.dark_sky_temperature.state | round(0) | int < 32 or 
+                states.sensor.dark_sky_cloud_coverage.state | round(0) | int > 30 %}
+            false
+          {% else %}
+            true
+          {% endif %}
+
+sensor:
+  - platform: template
+    sensors:
+      uv_burn_time:
+       # Celtic         = 67  Min 
+       # Caucasian      = 100 Min 
+       # Central Europe = 200 Min 
+       # South american = 200 Min 
+       # Middle Eastern = 400 Min 
+       # African        = 500 Min
+        value_template: >
+          {% if is_state('sensor.pws_uv', '0') %}
+            0 Minutes
+          {% elif is_state('sensor.pws_uv', '-1') %}
+            0 Minutes
+          {% else %}
+            {{ (400 / states.sensor.pws_uv.state | float) | round }} Minutes
+          {% endif %}
+
+  - platform: wunderground
+    api_key: !secret wunderground_key
+    monitored_conditions:
+      - weather
+      - temp_f
+      - feelslike_f
+      - heat_index_f
+      - wind_mph
+      - relative_humidity
+      - visibility_mi
+      - UV
+      - alerts
+  
+  - platform: darksky
+    api_key: !secret darksky_api_key
+    monitored_conditions:
+      - summary
+      - icon
+      - nearest_storm_distance
+      - nearest_storm_bearing
+      - precip_type
+      - precip_intensity
+      - precip_probability
+      - temperature
+      - apparent_temperature
+      - dew_point
+      - wind_speed
+      - wind_bearing
+      - cloud_cover
+      - humidity
+      - pressure
+      - visibility
+      - ozone
+      - minutely_summary
+      - hourly_summary
+      - daily_summary
+      - temperature_max
+      - temperature_min
+      - apparent_temperature_max
+      - apparent_temperature_min
+      - precip_intensity_max
+
+  - platform: rest
+    name: pollen
+    resource: !secret weather_pollen_url
+    value_template: "{{value_json.Location.periods[1].Index}}"
+    scan_interval: 21600
+    headers:
+      Referer: "https://www.pollen.com"
+
+  - platform: rest
+    name: cold_flu
+    resource: !secret weather_cold_flu_url
+    value_template: "{{value_json.Location.periods[0].Index}}"
+    scan_interval: 21600
+    headers:
+      Referer: "https://www.pollen.com"      
+
+  - platform: template
+    sensors:
+      air_quality:
+        friendly_name: 'Air Quality'
+        value_template: >
+          {% if states('sensor.waqi_columbus__fairgrounds_ohio') != 'unknown' %}
+            {% set aq = states.sensor.waqi_columbus__fairgrounds_ohio.state | default | int('1') %}
+            {% if aq == "1" %}
+              Good
+            {% elif (aq > 0) and (aq <= 50) %}
+              Good
+            {% elif (aq > 50) and (aq <= 100) %}
+              Moderate
+            {% elif (aq > 100) and (aq <= 150) %}
+              Unhealthy for sensitive Groups
+            {% elif (aq > 150) (aq <= 200) %}
+              Unhealthy
+            {% elif (aq > 200) and (aq <= 300) %}
+              Very Unhealthy
+            {% elif (aq > 300) %}
+              Hazardous! Do not go out!
+            {% endif %}
+          {% else %}
+            Good
+          {% endif %}
+      pollen_level:
+        friendly_name: 'Pollen Level'
+        value_template: >-
+          {%- if states.sensor.pollen.state|float <= 2.4 %}
+              Low
+          {%- elif states.sensor.pollen.state|float <= 4.8 %}
+              Medium-Low
+          {%- elif states.sensor.pollen.state|float <= 7.2 %}
+              Medium
+          {%- elif states.sensor.pollen.state|float <= 9.6 %}
+              Medium-High
+          {%- elif states.sensor.pollen.state|float <= 12.0 %}
+              High
+          {% else %}
+              Unknown
+          {%- endif %}
+      wind_direction:
+        friendly_name: 'Wind Direction'
+        value_template: >-
+          {% set value = states.sensor.dark_sky_wind_bearing.state | default(0) | float %}
+          {% if value >11  and value <=34 %}NNE
+          {% elif value >34  and value <=56 %}NE
+          {% elif value >56  and value <=79 %}ENE
+          {% elif value >79  and value <=101%}E
+          {% elif value >101 and value <=124 %}ESE
+          {% elif value >124 and value <=146 %}SE
+          {% elif value >146 and value <=169 %}SSE
+          {% elif value >169 and value <=191 %}S
+          {% elif value >191 and value <=214 %}SSW
+          {% elif value >214 and value <=236 %}SW
+          {% elif value >236 and value <=259 %}WSW
+          {% elif value >259 and value <=281 %}W
+          {% elif value >281 and value <=304 %}WNW
+          {% elif value >304 and value <=326 %}NW
+          {% elif value >326 and value <=348 %}NNW
+          {% else %}N
+          {% endif %}
+      wind_direction_tts:
+        friendly_name: 'Wind Direction For TTS'
+        value_template: >-
+          {% set value = states.sensor.dark_sky_wind_bearing.state | default(0) | float %}
+          {% if value >11  and value <=34 %}North and North West
+          {% elif value >34  and value <=56 %}North East
+          {% elif value >56  and value <=79 %}East and North East
+          {% elif value >79  and value <=101%}East
+          {% elif value >101 and value <=124 %}East and South East
+          {% elif value >124 and value <=146 %}South East
+          {% elif value >146 and value <=169 %}South and South East
+          {% elif value >169 and value <=191 %}South
+          {% elif value >191 and value <=214 %}South and South West
+          {% elif value >214 and value <=236 %}South West
+          {% elif value >236 and value <=259 %}West and South West
+          {% elif value >259 and value <=281 %}West
+          {% elif value >281 and value <=304 %}West and North West
+          {% elif value >304 and value <=326 %}North West
+          {% elif value >326 and value <=348 %}North and North West
+          {% else %}N
+          {% endif %}
+      cold_flu_risk:
+        friendly_name: 'Cold & Flu Risk'
+        value_template: >-
+          {%- if states.sensor.cold_flu.state|float <= 2.4 %}
+              Low
+          {%- elif states.sensor.cold_flu.state|float <= 4.8 %}
+              Medium-Low
+          {%- elif states.sensor.cold_flu.state|float <= 7.2 %}
+              Medium
+          {%- elif states.sensor.cold_flu.state|float <= 9.6 %}
+              Medium-High
+          {%- elif states.sensor.cold_flu.state|float <= 12.0 %}
+              High
+          {% else %}
+              Unknown
+          {%- endif %}
+          
+automation:
+
+  - alias: Weather Alert
+    initial_state: true
+    hide_entity: true
+    trigger:
+      platform: state
+      entity_id: sensor.pws_alerts
+    condition:
+      condition: template
+      value_template: '{{ states.sensor.pws_alerts.state | int > 0}}'
+    action:
+      - service: script.notify_me
+        data_template:
+          message: >
+            Attention!  The National Weather Service has issued a {{ states.sensor.pws_alerts.attributes.Description }}
+            for your area, expiring at {{ states.sensor.pws_alerts.attributes.Expires }}.
+
+  # Script to alert when enjoyable weather is outside
+  # For me, enjoyable is: 
+  #      1. Must be above 70 Degrees F
+  #      2. Alert me only during day time
+  #
+  # Only want to be notified every 15 minutes or so. Do not want to be bombarded with updates every minute wind speed changes
+  - alias: Remind me to enjoy warm and windy weather
+    initial_state: true
+    hide_entity: true
+    trigger:
+      platform: state
+      entity_id: sensor.dark_sky_wind_speed
+    condition:
+      - condition: template
+        value_template: '{{ states.input_boolean.enjoyable_weather_reminders.state == "on" }}'
+      - condition: state
+        entity_id: sun.sun
+        state: 'above_horizon'
+      - condition: template
+        value_template: '{% if states.sensor.dark_sky_apparent_temperature.state | round > 70 %} true {% else %} false {% endif %}'
+      - condition: template
+        value_template: '{% if states.sensor.dark_sky_wind_speed.state | round < 8 %} false {% else %} true {% endif %}'
+    action:
+      - service: script.notify_me
+        data_template:
+          message: >
+            {% set windspeed = states.sensor.dark_sky_wind_speed.state | round %}
+            {% if ( windspeed > 7 and ( windspeed <= 15 ) and (states.input_boolean.nice_breeze_alert.state == 'off')) %}
+               {{ states.sensor.dark_sky_apparent_temperature.state | round }} degrees, and {{windspeed}} mph winds. You should go out and enjoy weather!
+            {% elif ( windspeed > 15 ) and ( windspeed <= 25 ) and (states.input_boolean.moderate_wind_alert.state == 'off') %}
+               {{ states.sensor.dark_sky_apparent_temperature.state | round }} degrees, and {{windspeed}} mph winds. You should go out and enjoy weather!
+            {% elif ( windspeed > 25 ) and ( windspeed <= 40 ) and (states.input_boolean.heavy_wind_alert.state == 'off') %}
+               HEAVY WINDS!!! Current Wind Speed is : {{windspeed}} mph! Be VERY careful outdoors!
+            {% elif ( windspeed > 40 ) and ( windspeed <= 60 ) and (states.input_boolean.super_heavy_wind_alert.state == 'off') %}
+               Warning! Wind speed is {{windspeed}} MPH. FIND SHELTER IMMEDIATELY!
+            {% elif ( windspeed > 60 ) and (states.input_boolean.hurricane_wind_alert.state == 'off') %}
+               HURRICANE WINDS. FIND SHELTER, AND STAY INDOORS!
+            {% endif %}
+      - service: input_boolean.turn_on
+        data_template:
+          entity_id: >
+            {% set windspeed = states.sensor.dark_sky_wind_speed.state | round %}
+            {%- if ( windspeed > 7 and ( windspeed <= 15 ) ) -%}
+               input_boolean.nice_breeze_alert
+            {%- elif ( windspeed > 15 ) and ( windspeed <= 25 ) %}
+               input_boolean.moderate_wind_alert
+            {%- elif ( windspeed > 25 ) and ( windspeed <= 40 ) %}
+               input_boolean.heavy_wind_alert
+            {%- elif ( windspeed > 40 ) and ( windspeed <= 60 ) %}
+               input_boolean.super_heavy_wind_alert
+            {%- elif ( windspeed > 60 ) %}
+               input_boolean.hurricane_wind_alert
+            {%- endif %}
+
+  # #Turn off those wind speed alert booleans automatically after 15 minutes.
+  - alias: Weather Input Boolean Updates
+    initial_state: true
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id:
+        - input_boolean.nice_breeze_alert
+        - input_boolean.moderate_wind_alert
+        - input_boolean.heavy_wind_alert
+        - input_boolean.super_heavy_wind_alert
+        - input_boolean.hurricane_wind_alert
+        - input_boolean.rain_alert
+        - input_boolean.snow_alert
+        - input_boolean.sleet_alert
+        to: 'on'
+        for:
+          minutes: 15
+    action:
+      - service: input_boolean.turn_off
+        data_template:
+          entity_id: "{{ trigger.entity_id }}"
+
+  - alias: Alert Super Heavy Winds
+    initial_state: true
+    hide_entity: true
+    trigger:
+      platform: state
+      entity_id: sensor.dark_sky_wind_speed
+    condition:
+      - condition: template
+        value_template: >
+          {%- if states.sensor.dark_sky_wind_speed.last_changed -%}
+            {{ (as_timestamp(now()) - as_timestamp(states.sensor.dark_sky_wind_speed.last_changed)) > 120 }}
+          {%- else -%}
+            true
+          {%- endif -%}
+    action:
+      - service: script.notify_me
+        data_template:
+          message: >
+            {% set windspeed = states.sensor.dark_sky_wind_speed.state | round %}
+            {% if ( windspeed > 40 ) and ( windspeed <= 60 ) and (states.input_boolean.super_heavy_wind_alert.state == 'off') %}
+               Warning! Wind speed is {{windspeed}} MPH. FIND SHELTER IMMEDIATELY!             
+            {% elif ( windspeed > 60 ) and ( windspeed <= 100 ) and (states.input_boolean.hurricane_wind_alert.state == 'off') %}
+               HURRICANE WINDS. FIND SHELTER, AND STAY INDOORS! DO NOT GO OUT AND RISK YOUR LIFE!
+            {% endif %}
+
+  - alias: Rain Alerts
+    initial_state: true
+    hide_entity: true
+    trigger:
+      platform: state
+      entity_id: sensor.dark_sky_precip
+    condition:
+      - condition: template
+        value_template: '{{ trigger.to_state.state | lower == "rain" }}'
+      - condition: state
+        entity_id: group.all_devices
+        state: 'home'
+      - condition: state
+        entity_id: sun.sun
+        state: 'above_horizon'        
+      - condition: template
+        value_template: '{% if trigger.to_state.state == "unknown" or trigger.to_state.state == "" %} false {% else %} true {% endif %}'
+      - condition: template
+        value_template: '{{ states.sensor.dark_sky_precip_probability.state | int == 1 }}'
+    action:
+      - service: script.notify_me
+        data_template:
+          message: "{{ trigger.to_state.state | title }} with intensity {{ states.sensor.dark_sky_precip_intensity.state | float }} inches per hour"
+      - service: script.voice_notify
+        data_template:
+          message: "{{ trigger.to_state.state }} with intensity {{ states.sensor.dark_sky_precip_intensity.state | float}} inches per hour"
+      - service: input_boolean.turn_on
+        data_template:
+          entity_id: >
+            {% set curState = trigger.to_state.state | lower %}
+            {%- if curState == "rain" -%}
+               input_boolean.rain_alert
+            {%- endif %}
+
+  - alias: Snow And Sleet Alerts
+    initial_state: true
+    hide_entity: true
+    trigger:
+      platform: state
+      entity_id: sensor.dark_sky_precip
+    condition:
+      - condition: template
+        value_template: '{{ states.sensor.season.state | lower == "winter" }}'
+      - condition: state
+        entity_id: group.all_devices
+        state: 'home'
+      - condition: state
+        entity_id: sun.sun
+        state: 'above_horizon'        
+      - condition: template
+        value_template: '{% if trigger.to_state.state == "unknown" or trigger.to_state.state == "" %} false {% else %} true {% endif %}'
+      - condition: template
+        value_template: '{{ states.sensor.dark_sky_precip_probability.state | int == 1 }}'
+    action:
+      - service: script.notify_me
+        data_template:
+          message: "{{ trigger.to_state.state | title }} with intensity {{ states.sensor.dark_sky_precip_intensity.state | float }} inches per hour"
+      - service: script.voice_notify
+        data_template:
+          message: "{{ trigger.to_state.state }} with intensity {{ states.sensor.dark_sky_precip_intensity.state | float}} inches per hour"
+      - service: input_boolean.turn_on
+        data_template:
+          entity_id: >
+            {% set curState = trigger.to_state.state | lower %}
+            {%- if curState == "snow" %}
+               input_boolean.snow_alert
+            {%- elif curState == "sleet" %}
+               input_boolean.sleet_alert
+            {%- endif %}
+
+# Weather sensors - TBD, too lazy to create them
+#
+# {{ states.sun.sun.state }}
+# {{ states.sun.sun.attributes.azimuth }}
+# {{ states.sun.sun.attributes.elevation }}
+# Next Dusk: {{ as_timestamp(strptime(states.sun.sun.attributes.next_dusk, '%Y-%m-%d %H:%M:%S')) |timestamp_custom('%I:%M %p', true) }}
+# Next Midnight: {{ as_timestamp(strptime(states.sun.sun.attributes.next_midnight, '%Y-%m-%d %H:%M:%S')) |timestamp_custom('%I:%M %p', true) }}
+# Next Dawn: {{ as_timestamp(strptime(states.sun.sun.attributes.next_dawn, '%Y-%m-%d %H:%M:%S')) |timestamp_custom('%I:%M %p', true) }}
+# Next Rising: {{ as_timestamp(strptime(states.sun.sun.attributes.next_rising, '%Y-%m-%d %H:%M:%S')) |timestamp_custom('%I:%M %p', true) }}
+# Next Setting: {{ as_timestamp(strptime(states.sun.sun.attributes.next_setting, '%Y-%m-%d %H:%M:%S')) |timestamp_custom('%I:%M %p', true) }}

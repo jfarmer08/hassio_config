@@ -1,0 +1,92 @@
+###############################################################################
+#   @author         :   Trent Stanton
+#   @date           :   24/02/2018
+#   @package        :   
+#   @description    :   
+#   @url            :   
+###############################################################################
+homeassistant:
+  customize:
+    switch.fkiosk_screen:
+     name: Fully Kiosk Screen
+     icon: 'mdi:tablet'
+    sensor.fkiosk:
+     name: Fully Kiosk Sensor
+     icon: 'mdi:tablet'
+
+group:
+  fkiosk:
+    name: Fully Kiosk
+    control: hidden
+    entities:
+      - switch.fkiosk_screen
+      - sensor.fkiosk
+      - input_boolean.disable_fully_kiosk_screen_front_door
+
+input_boolean:
+  disable_fully_kiosk_screen_front_door:
+    name: Disable Fully Kiosk Screen Front Door
+    initial: off
+    icon: mdi:door
+
+sensor:
+  - platform: rest
+    name: fkiosk
+    json_attributes:
+      - batteryLevel
+      - kioskMode
+      - screenBrightness
+      - motionDetectorState
+      - maintenanceMode
+      - appFreeMemory
+      - appUsedMemory
+      - totalFreeMemory
+      - totalUsedMemory
+      - hostname4
+      - ip4
+      - mac
+      - locationLatitude
+      - locationLongitude
+      - locationAltitude
+      - startUrl
+      - currentPage
+    resource: !secret fkiosk_rest
+    value_template: '{{ value_json.isScreenOn }}'
+  - platform: template
+    sensors:
+      foo_battery_level:
+        friendly_name: "fkiosk_battery_level"
+        unit_of_measurement: '%'
+        value_template: "{{ states.sensor.fkiosk.attributes.batteryLevel }}"
+        
+switch:
+  - platform: command_line
+    switches:
+      fkiosk_screen:
+        command_on: !secret fkiosk_screen_on
+        command_off: !secret fkiosk_screen_off
+        command_state: !secret fkiosk_screen_state
+        value_template: '{{ value == "on" }}'
+        friendly_name: Fkiosk Screen
+
+###############################################################################
+#                               Automations
+###############################################################################
+automation:
+- alias: Fully Kiosk Screen Front Door
+  trigger:
+  - platform: state 
+    entity_id: binary_sensor.door_window_sensor_158d00019f3211
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.fkiosk_screen
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.disable_fully_kiosk_screen_front_door
+      state: 'off'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.fkiosk_screen

@@ -1,0 +1,98 @@
+###############################################################################
+#   @author         :   Trent Stanton
+#   @date           :   24/02/2018
+#   @package        :   
+#   @description    :   
+#   @url            :   
+###############################################################################
+homeassistant:
+  customize:
+    switch.air_conditioner:
+      friendly_name: Air Conditioner
+      icon: mdi:air-conditioner
+    switch.fan:
+      friendly_name: Fan
+      icon: mdi:fan
+    script.start_air_conditioner:
+      friendly_name: Start Air Conditioner
+      icon: mdi:air-conditioner
+    script.stop_air_conditioner:
+      friendly_name: Stop Air Conditioner
+      icon: mdi:air-conditioner
+    script.start_fan:
+      friendly_name: Start Fan
+      icon: mdi:fan
+    script.stop_fan:
+      friendly_name: Stop Fan
+      icon: mdi:fan
+
+group:
+  speech_functions:
+    name: Speech Functions
+    control: hidden
+    entities:
+      - input_boolean.lastmsg
+      - switch.air_conditioner
+      - switch.fan
+
+script:
+  start_air_conditioner:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.ac_fan_mode
+          option: AUTO
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.ac_swing_mode
+          option: TOP
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.ac_target_temp
+          value: 21
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.ac_operation_mode
+          option: COOL
+  stop_air_conditioner:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.ac_operation_mode
+          option: Power Off
+  start_fan:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.fan_operation_mode
+          option: Forward
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.fan_speed
+          value: 3
+  stop_fan:
+    sequence:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.fan_operation_mode
+          option: Power Off
+
+switch:
+  - platform: template
+    switches:
+      air_conditioner:
+        value_template: "{{ is_state('input_select.ac_operation_mode', 'COOL') }}"
+        turn_on:
+          service: script.turn_on
+          entity_id: script.start_air_conditioner
+        turn_off:
+          service: script.turn_on
+          entity_id: script.stop_air_conditioner
+      fan:
+        value_template: "{{ is_state('input_select.fan_operation_mode', 'Forward') }}"
+        turn_on:
+          service: script.turn_on
+          entity_id: script.start_fan
+        turn_off:
+          service: script.turn_on
+          entity_id: script.stop_fan
