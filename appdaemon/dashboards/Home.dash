@@ -17,27 +17,27 @@ layout:
     - include: bottom_panel
 veronanord:
     widget_type: camera
-    entity_picture: !secret veronanord_url
+    entity_picture: !secret driveway_camera_ip
     refresh: 120
 nogarole:
     widget_type: camera
-    entity_picture: !secret nogarole_url
+    entity_picture: !secret driveway_camera_ip
     refresh: 120
 pegognaga:
     widget_type: camera
-    entity_picture: !secret pegognaga_url
+    entity_picture: !secret driveway_camera_ip
     refresh: 120
 reggiolo:
     widget_type: camera
-    entity_picture: !secret reggiolo_url
+    entity_picture: !secret driveway_camera_ip
     refresh: 120
 campogalliano:
     widget_type: camera
-    entity_picture: !secret campogalliano_url
+    entity_picture: !secret driveway_camera_ip
     refresh: 120
 meteocamera:
     widget_type: camera
-    entity_picture: !secret meteocamera_url
+    entity_picture: !secret driveway_camera_ip
     refresh: 120
 max_presence:
     widget_type: device_tracker
