@@ -35,7 +35,7 @@ http:
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   # base_url: example.duckdns.org:8123
   cors_allowed_origins:
-    - http://addres.to.your.hass.io:7080
+    - http://192.168.1.85:7080
 # Checks for available updates
 # Note: This component will send some information about your system to
 # the developers to assist with development of Home Assistant.
