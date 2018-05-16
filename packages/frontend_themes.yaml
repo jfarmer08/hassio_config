@@ -1,4 +1,6 @@
 frontend:
+    extra_html_url:
+    - /local/custom_ui/state-card-floorplan.html
   themes:
     dark_red:
       dark-primary-color: "#c66900"
@@ -125,3 +127,16 @@ automation:
         data_template:
           name: '{{ ["light_pink", "default"] | random  }}'
 #######################################################################
+binary_sensor:
+  - platform: mqtt
+    state_topic: dummy/floorplan/sensor
+    name: Floorplan
+customize:    
+    binary_sensor.floorplan:
+      custom_ui_state_card: state-card-floorplan
+      config: !include floorplan.yaml
+group:
+  zones:
+    name: Zones
+    entities:
+      - binary_sensor.floorplan
