@@ -23,8 +23,6 @@ homeassistant:
 # Show links to resources in log and frontend
 introduction:
 
-# Enables the frontend
-frontend:
 
 # Enables configuration UI
 config:
@@ -74,6 +72,9 @@ sun:
 # Text to speech
 tts:
   - platform: google
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
 
 # Cloud
 cloud:
@@ -130,4 +131,5 @@ panel_custom: !include includes/panel_custom.yaml
 # View all events in a logbook
 logbook: !include includes/logbook.yaml
 #image_processing: !include includes/image_processing.yaml
-
+# Enables the frontend
+frontend: !include includes/frontend.yaml
