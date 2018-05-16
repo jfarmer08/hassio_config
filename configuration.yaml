@@ -20,7 +20,7 @@ homeassistant:
     pack_5: !include packages/traffic_cam.yaml
     pack_6: !include packages/cameras.yaml
 ## Enables the frontend
-    frontend: !include packages/frontend_themes.yaml
+frontend:
 
 # Show links to resources in log and frontend
 introduction:
