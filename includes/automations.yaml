@@ -3,10 +3,10 @@
 #                                 AUTOMATIONS
 #
 ###############################################################################
-  - alias: "Spegne il pc in caso salti la luce e manda una notifica"
+  - alias: "Turn off your PC if you skip the light and send a notification"
     trigger:
       - platform: state
-        entity_id: binary_sensor.zidoo
+        entity_id: binary_sensor.hooks
         to: 'off'
     condition:
       - condition: state
@@ -17,7 +17,7 @@
         entity_id: switch.windows
       - service: notify.notify
         data:
-          message: "E' saltata la luce."
+          message: "The light is blown."
 #dopo tot minuti spegnere hassio
 #******************************************************************************
   - alias: "Restart HA during the weekdays"
@@ -35,7 +35,7 @@
     action:
       - service: notify.notify
         data:
-          message: "Home Assistant in riavvio automatico giornaliero."
+          message: "Home Assistant in automatic daily restart."
       - service: homeassistant.restart
 #******************************************************************************
   - alias: "Restart HA during the weekend"
@@ -57,11 +57,11 @@
     action:
       - service: notify.notify
         data:
-          message: "Home Assistant è attivo."
+          message: "Home Assistant is active."
       - service: hassio.addon_stdin
         data:
           addon: de3cd379_audio_player
-          input: "http://192.168.1.100:8123/local/computer_activate.mp3"
+          input: "http://192.168.1.85:8123/local/computer_activate.mp3"
       - service: group.set_visibility
         entity_id: group.airconditioner
         data:
@@ -103,9 +103,9 @@
     action:
       - service: notify.notify
         data:
-          message: "Home Assistant è in riavvio."
+          message: "Home Assistant is restarting."
       - service: hassio.addon_stdin
         data:
           addon: de3cd379_audio_player
-          input: "http://192.168.1.100:8123/local/hologram_off.mp3"
+          input: "http://192.168.1.85:8123/local/hologram_off.mp3"
 #******************************************************************************
