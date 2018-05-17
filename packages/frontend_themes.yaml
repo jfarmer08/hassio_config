@@ -1,5 +1,5 @@
 frontend:
-    extra_html_url:
+  extra_html_url:
     - /local/custom_ui/state-card-floorplan.html
   themes:
     dark_red:
