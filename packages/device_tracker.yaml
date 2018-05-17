@@ -35,31 +35,31 @@ device_tracker:
     request_rssi: true
     track_new_devices: yes
 group:
-  allen:
-    name: Allen
+  allen_DT_GROUP:
+    name: Allen 
     entities:
       - device_tracker.allens_iphone
       - device_tracker.allens_iphone_2
       - device_tracker.allensiphone
-  allen_Work:
+  allen_Work_DT_GROUP:
     name: Allen Work
     entities:
       - device_tracker.farmerwork
       - device_tracker.farmerwork_2
-  allens_Car:
+  allens_Car_DT_GROUP:
     name: Allen Car
     entities:
       - device_tracker.obdii
-  stephanie:
+  stephanie_DT_GROUP:
     name: Stephanie
     entities:
       - device_tracker.stephanesiphone
       - device_tracker.stephaniesipad
-  chloe:
+  chloe_DT_GROUP:
     name: Chloe
     entities:
       - device_tracker.101114
-  sheldon:
+  sheldon_DT_GROUP:
     name: Sheldon
     entities:
       - device_tracker.sheldonsiphone
@@ -158,7 +158,7 @@ automation:
         from: 'not_home'
         to: 'home'
       - platform: state
-        entity_id: group.stephanie
+        entity_id: group.stephanie_DT_GROUP
         from: 'not_home'
         to: 'home'
     action:
@@ -223,7 +223,7 @@ automation:
         from: 'home'
         to: 'not_home'
       - platform: state
-        entity_id: group.stephanie
+        entity_id: group.stephanie_DT_GROUP
         from: 'home'
         to: 'not_home'
     action:
