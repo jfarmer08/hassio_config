@@ -26,7 +26,7 @@ homeassistant:
     pack_11: !include packages/google_geocode.yaml
     pack_12: !include packages/frontend_themes.yaml
 ## Enables the frontend
-frontend:
+#frontend:
 
 # Show links to resources in log and frontend
 introduction:
