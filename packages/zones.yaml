@@ -1,0 +1,240 @@
+###############################################################################
+#   @author         :   Mahasri Kalavala
+#   @date           :   04/15/2017
+#   @package        :   Zone
+#   @description    :   All the zones are defined here
+###############################################################################
+homeassistant:
+  customize:
+
+    input_boolean.home_mode_away:
+      friendly_name: Away Mode
+    zone.home:
+      friendly_name: Home
+    zone.work:
+      friendly_name: BEST Access
+    zone.wrccwork:
+      friendly_name: WRCC
+    zone.nms:
+      friendly_name: Noblesville Middle School
+    zone.nes:
+      friendly_name: Noblesville ELEM School
+    group.zone_alerts:
+      order: 40
+
+zone:
+  - name: work
+    latitude: !secret allen_work_latitude
+    longitude: !secret allen_work_longitude
+    radius: 200
+    icon: mdi:briefcase
+  - name: wrccwork
+    latitude: !secret stephanie_work_latitude
+    longitude: !secret stephanie_work_longitude
+    radius: 200
+    icon: mdi:briefcase
+  - name: nms
+    latitude: !secret Middle_School_latitude
+    longitude: !secret Middle_School_longitude
+    radius: 200
+    icon: mdi:briefcase
+  - name: nes
+    latitude: !secret ELEM_School_latitude
+    longitude: !secret ELEM_School_longitude
+    radius: 200
+    icon: mdi:briefcase
+  - name: home
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 200
+    icon: mdi:briefcase
+
+input_boolean:
+  home_mode_away:
+    name: Away
+    initial: 'off'
+
+proximity:
+  home:
+    devices: device_tracker.allens_iphone
+    tolerance: 50
+    unit_of_measurement: mi
+  work: 
+    devices: device_tracker.allens_iphone
+    tolerance: 50
+    unit_of_measurement: mi
+
+automation:
+###############################################################################
+# Zone based alerting
+###############################################################################
+  - alias: Alert When Someone Enters a Zone
+    initial_state: true
+    hide_entity: true
+    trigger:
+      - platform: zone
+        entity_id:
+          - device_tracker.allens_iphone
+          - device_tracker.farmerwork
+          - device_tracker.stephanesiphone
+          - device_tracker.101114
+          - device_tracker.sheldonsiphone
+          - device_tracker.kaydeesipad
+        zone: zone.home
+        event: enter
+      - platform: zone
+        entity_id: device_tracker.allens_iphone
+        zone: zone.work
+        event: enter
+    condition:
+      - condition: template
+        value_template: '{{ states.input_boolean.alert_when_someone_enters_zone.state == "on" }}'                
+    action:
+      - service: script.notify_me
+        data_template:
+          message: >
+            {{ trigger.entity_id.split('.')[1].split('_')[0] | title}} just entered {{ trigger.zone.attributes.friendly_name }}!
+      - service: script.voice_notify
+        data_template:
+          message: >
+            {{ trigger.entity_id.split('.')[1].split('_')[0] | title}} just entered {{ trigger.zone.attributes.friendly_name }}!
+
+  - alias: Alert When Someone Leaves a Zone
+    initial_state: true
+    hide_entity: true
+    trigger:
+      - platform: zone
+        entity_id:
+          - device_tracker.allens_iphone
+          - device_tracker.farmerwork
+          - device_tracker.stephanesiphone
+          - device_tracker.101114
+          - device_tracker.sheldonsiphone
+          - device_tracker.kaydeesipad
+        zone: zone.home
+        event: leave
+      - platform: zone
+        entity_id: device_tracker.allen_allen
+        zone: zone.work
+        event: leave
+    condition:
+      - condition: template
+        value_template: '{{ states.input_boolean.alert_when_someone_leaves_zone.state == "on" }}'        
+    action:
+      - service: script.notify_me
+        data_template:
+          message: "{{ trigger.entity_id.split('.')[1].split('_')[0] | title}} just left {{ trigger.zone.attributes.friendly_name }}."
+      - service: script.voice_notify
+        data_template:
+          message: >-
+            {{ trigger.entity_id.split('.')[1].split('_')[0] | title }} just left {{ trigger.zone.attributes.friendly_name }}.
+            {% if trigger.entity_id.split('.')[1].split('_')[0] == "allen" and trigger.zone.attributes.friendly_name | lower == "office" %}
+              and will be home in {{ (states.sensor.allen2home.state | int) + 5 }} minutes.
+            {% endif %}
+
+###############################################################################
+# Welcome family members when they come home
+###############################################################################
+  - alias: Welcome Family
+    initial_state: true
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id:
+          - device_tracker.allens_iphone
+          - device_tracker.farmerwork
+          - device_tracker.stephanesiphone
+          - device_tracker.101114
+          - device_tracker.sheldonsiphone
+          - device_tracker.kaydeesipad
+        from: 'not_home'
+        to: 'home'
+        for: '00:02:00'
+    condition:
+      - condition: template
+        value_template: '{{ states.input_boolean.welcome_family_announcement.state == "on" }}'
+    action:
+      - service: script.notify_me
+        data_template:
+          message: >
+            Welcome home, {{ trigger.entity_id.split('.')[1].split('_')[0] | title }}!
+      - service: script.voice_notify
+        data_template:
+          message: >
+            "Welcome home, {{ trigger.entity_id.split('.')[1].split('_')[0] | lower }}!"
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.home_mode_away
+
+##############################################################################
+# Alert when every one is away
+##############################################################################
+  - alias: Alert when everyone is AWAY
+    initial_state: true
+    hide_entity: true
+    trigger:
+      platform: time
+      minutes: 00
+      seconds: '/30'
+    condition:
+      - condition: template
+        value_template: '{{ states.input_boolean.alert_no_one_home.state == "on" }}'
+      - condition: template
+        value_template: '{{ states.input_boolean.home_mode_away.state == "off" }}'
+      - condition: template
+        value_template: >
+          {% set allen = states.device_tracker.allens_iphone.state %}
+          {% set stephanie = states.device_tracker.farmerwork.state %}
+          {% set stephanie = states.device_tracker.stephanesiphone.state %}
+          {% set chloe = states.device_tracker.101114.state %}
+          {% if allen != "home" and stephanie != "home" and stephanie != "home" and chloe != "home" %}
+            True
+          {% else %}
+            False
+          {% endif %}
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.home_mode_away
+
+  - alias: Home Mode Away ON
+    initial_state: true
+    hide_entity: true
+    trigger:
+      platform: state
+      entity_id: input_boolean.home_mode_away
+      to: 'on'
+    action:
+      - service: script.home_mode_away
+
+###############################################################################
+# Proximity - Send an alert when someone is on their way home
+###############################################################################
+  - alias: Send a message as I get closer to home
+    initial_state: true
+    hide_entity: true
+    trigger:
+      platform: numeric_state
+      entity_id: proximity.home
+      below: 5
+      above: 1
+    condition:
+      - condition: template
+        value_template: '{{ states.proximity.home.attributes.dir_of_travel == "towards" }}'
+    action:
+      - service: script.notify_me
+        data_template:
+          message: "Suresh is on his way home, he is within the 5 miles range. Should be home soon!"
+      - condition: template
+        value_template: >
+          {% set allen = states.device_tracker.stephanie_stephanie.state %}
+          {% set stephanie = states.device_tracker.allen_allen.state %}
+          {% set stephanie = states.device_tracker.stephanie_stephanie.state %}
+          {% set chloe = states.device_tracker.chloe_chloe.state %}
+          {% if allen != "home" and stephanie != "home" and stephanie != "home" and chloe != "home" %}
+            True
+          {% else %}
+            False
+          {% endif %}
+      - service: script.set_nest_home
+      - service: script.notify_me
+        data_template:
+          message: "Your Nest thermostat is set to HOME mode. Thank you!"
