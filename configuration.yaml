@@ -145,3 +145,16 @@ panel_custom: !include includes/panel_custom.yaml
 logbook: !include includes/logbook.yaml
 #image_processing: !include includes/image_processing.yaml
 
+history_graph:
+  gr1:
+    name: Power
+    entities:
+      - sensor.aeotec_dsb09104_home_energy_meter_energy
+      - sensor.aeotec_dsb09104_home_energy_meter_energy_2
+    hours_to_show: 640
+    refresh: 60
+  gr2:
+    name: Master Bedroom Closet Light
+    entities:
+      - zwave.linear_ws15z1_wall_switchzwave.linear_ws15z1_wall_switch
+    hours_to_show: 120
