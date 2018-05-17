@@ -29,7 +29,7 @@ homeassistant:
 #frontend:
 
 # Show links to resources in log and frontend
-introduction:
+#introduction:
 calendar:
   - platform: caldav
     username: !secret google_username
