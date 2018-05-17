@@ -61,13 +61,13 @@ group:
     entities:
       - device_tracker.kaydeesipad
   people_status:
-  name: People Status
-  entities:
-    - sensor.allen_status
-    - sensor.stephanie_status
-    - sensor.chloe_status
-    - sensor.sheldon_status_dropdown
-    - sensor.kaydee_status
+    name: People Status
+    entities:
+      - sensor.allen_status
+      - sensor.stephanie_status
+      - sensor.chloe_status
+      - sensor.sheldon_status_dropdown
+      - sensor.kaydee_status
 sensor:
   - platform: template
     sensors:
@@ -152,7 +152,20 @@ automation:
             {% else %}
               input_select.stephanie_status_dropdown
             {% endif %}
-          option: Just Arrived
+          option: >
+            {% if trigger.entity_id == 'device_tracker.qopyeeku_phil' %}
+              {% if states.input_select.phil_status_dropdown.state == 'Just Left' %}
+                Home
+              {% else %}
+                Just Arrived
+              {% endif %}
+            {% else %}
+              {% if states.input_select.helen_status_dropdown.state == 'Just Left' %}
+                Home
+              {% else %}
+                Just Arrived
+              {% endif %}
+            {% endif %}
  
   - alias: Mark person as home
     trigger:
