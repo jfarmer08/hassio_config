@@ -28,7 +28,8 @@
     consider_home: 120
     interval_seconds: 10
     hosts: 192.168.1.1/24
-  - platform: bluetooth_le_tracker
+  - platform: bluetooth_tracker
     interval_seconds: 20
     consider_home: 120
     track_new_devices: yes
+  - platform: bluetooth_le_tracker
