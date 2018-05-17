@@ -1,0 +1,152 @@
+homeassistant:
+  customize:
+
+    # Locations
+    sensor.allen_location:
+      friendly_name: Allen is at
+      icon: mdi:map-marker
+    sensor.stephanie_location:
+      friendly_name: Stephanie is at
+      icon: mdi:map-marker
+    sensor.chloe_location:
+      friendly_name: Chloe is at
+      icon: mdi:map-marker
+    sensor.sheldon_location:
+      friendly_name: Sheldon is at
+      icon: mdi:map-marker
+    sensor.kaydee_location:
+      friendly_name: Kaydee is at
+      icon: mdi:map-marker
+
+    # Travel Times
+    sensor.home2work:
+      friendly_name: Home -> Work
+      icon: mdi:domain
+    sensor.work2home:
+      friendly_name: Work -> Home
+      icon: mdi:home
+    sensor.allen2home:
+      friendly_name: Allen -> Home
+      icon: mdi:home
+    sensor.allen2work:
+      friendly_name: Allen -> Work
+      icon: mdi:domain
+    sensor.chloe2home:
+      friendly_name: Chloe -> Home
+      icon: mdi:home
+    sensor.sheldon2home:
+      friendly_name: Sheldon -> Home
+      icon: mdi:home
+    sensor.kaydee2home:
+      friendly_name: Kaydee -> Home
+      icon: mdi:home
+
+    group.where_is_everyone:
+      order: 7
+    group.travel_time:
+      order: 6
+
+group:
+  Travel Time:
+    entities:
+      - sensor.home2work
+      - sensor.work2home
+      - sensor.allen2work
+      - sensor.allen2home
+      - sensor.stephanie2work
+      - sensor.stephanie2home
+      - sensor.chloe2home
+      - sensor.sheldon2home
+      - sensor.kaydee2home
+
+  Where is everyone:
+    entities:
+      - sensor.allen_location
+      - sensor.stephanie_location
+      - sensor.chloe_location
+      - sensor.sheldon_location
+      - sensor.kaydee_location
+
+# Google Calendar
+google:
+  client_id: !secret google_ID_CAL
+  client_secret: !secret google_secret_CAL
+
+# Google Travel Times and Geo Code/Location
+sensor:
+  - platform: google_travel_time
+    name: Home2Work
+    api_key: !secret google_travel_time_apikey 
+    origin: zone.home
+    destination: zone.work
+    options:
+      mode: driving
+  
+  - platform: google_travel_time
+    name: Work2Home
+    api_key: !secret google_travel_time_apikey 
+    origin: zone.work
+    destination: zone.home
+    options:
+      mode: driving
+  
+  - platform: google_travel_time
+    name: Allen2Home
+    api_key: !secret google_travel_time_apikey 
+    origin: device_tracker.allens_iphone_2
+    destination: zone.home
+    options:
+      mode: driving
+
+  - platform: google_travel_time
+    name: Chloe2Home
+    api_key: !secret google_travel_time_apikey 
+    origin: device_tracker.101114
+    destination: zone.home
+    options:
+      mode: walking
+
+  - platform: google_travel_time
+    name: Sheldon2Home
+    api_key: !secret google_travel_time_apikey 
+    origin: device_tracker.sheldonsiphone
+    destination: zone.home
+    options:
+      mode: walking
+
+  - platform: google_travel_time
+    name: Allen2Work
+    api_key: !secret google_travel_time_apikey 
+    origin: device_tracker.allens_iphone
+    destination: zone.work
+    options:
+      mode: driving
+
+    #  Address/Location Details
+  - platform: google_geocode
+    name: Allen Location
+    api_key: !secret google_maps_geocoding_api
+    origin: device_tracker.allens_iphone
+    options: formatted_address
+    display_zone: hide
+
+  - platform: google_geocode
+    name: Stephanie Location
+    api_key: !secret google_maps_geocoding_api
+    origin: device_tracker.stephanesiphone
+    options: formatted_address
+    display_zone: hide
+
+  - platform: google_geocode
+    name: Chloe Location
+    api_key: !secret google_maps_geocoding_api
+    origin: device_tracker.101114
+    options: formatted_address
+    display_zone: hide
+
+  - platform: google_geocode
+    name: Sheldon Location
+    api_key: !secret google_maps_geocoding_api
+    origin: device_tracker.sheldonsiphone
+    options: formatted_address
+    display_zone: hide
