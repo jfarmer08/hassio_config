@@ -39,4 +39,4 @@ group:
     entities:
       - device_tracker.allens_iphone
       - device_tracker.allens_iphone_2
-      - device_tracker.allensiphone	
+      - device_tracker.allensiphone
