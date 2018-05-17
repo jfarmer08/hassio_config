@@ -31,5 +31,5 @@
   - platform: bluetooth_tracker
     interval_seconds: 20
     consider_home: 120
+    request_rssi: true
     track_new_devices: yes
-  - platform: bluetooth_le_tracker
