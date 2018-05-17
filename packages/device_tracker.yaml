@@ -36,28 +36,35 @@ device_tracker:
     track_new_devices: yes
 group:
   allen:
+    name: Allen
     entities:
       - device_tracker.allens_iphone
       - device_tracker.allens_iphone_2
       - device_tracker.allensiphone
   allen_Work:
+    name: Allen Work
     entities:
       - device_tracker.farmerwork
       - device_tracker.farmerwork_2
   allens_Car:
+    name: Allen Car
     entities:
       - device_tracker.obdii
   stephanie:
+    name: Stephanie
     entities:
       - device_tracker.stephanesiphone
       - device_tracker.stephaniesipad
   chloe:
+    name: Chloe
     entities:
       - device_tracker.101114
   sheldon:
+    name: Sheldon
     entities:
       - device_tracker.sheldonsiphone
   kaydee:
+    name: Kaydee
     entities:
       - device_tracker.kaydeesipad
   people_status:
@@ -86,6 +93,17 @@ sensor:
       kaydee_status:
         value_template: '{{ states.input_select.kaydee_status_dropdown.state }}'
         friendly_name: 'Kaydee'
+#customize:
+#  sensor.allen_status:
+#    entity_picture: #URL to picture
+#  sensor.stephanie_status:
+#    entity_picture: #URL to picture
+#  sensor.chloe_status:
+#    entity_picture: #URL to picture
+#  sensor.sheldon_status:
+#    entity_picture: #URL to picture
+#  sensor.kaydee_status:
+#    entity_picture: #URL to picture
 input_select:
   allen_status_dropdown:
     name: Allen
