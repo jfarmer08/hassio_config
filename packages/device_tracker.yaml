@@ -35,29 +35,29 @@ device_tracker:
     request_rssi: true
     track_new_devices: yes
 group:
-  Allen:
+  allen:
     entities:
       - device_tracker.allens_iphone
       - device_tracker.allens_iphone_2
       - device_tracker.allensiphone
-  Allen_Work:
+  allen_Work:
     entities:
       - device_tracker.farmerwork
       - device_tracker.farmerwork_2
-  Allens_Car:
+  allens_Car:
     entities:
       - device_tracker.obdii
-  Stephanie:
+  stephanie:
     entities:
       - device_tracker.stephanesiphone
       - device_tracker.stephaniesipad
-  Chloe:
+  chloe:
     entities:
       - device_tracker.101114
-  Sheldon:
+  sheldon:
     entities:
       - device_tracker.sheldonsiphone
-  Kaydee:
+  kaydee:
     entities:
       - device_tracker.kaydeesipad
   people_status:
@@ -66,7 +66,7 @@ group:
       - sensor.allen_status
       - sensor.stephanie_status
       - sensor.chloe_status
-      - sensor.sheldon_status_dropdown
+      - sensor.sheldon_status
       - sensor.kaydee_status
 sensor:
   - platform: template
@@ -153,14 +153,14 @@ automation:
               input_select.stephanie_status_dropdown
             {% endif %}
           option: >
-            {% if trigger.entity_id == 'device_tracker.qopyeeku_phil' %}
-              {% if states.input_select.phil_status_dropdown.state == 'Just Left' %}
+            {% if trigger.entity_id == 'device_tracker.allen_iphone' %}
+              {% if states.input_select.allen_status_dropdown.state == 'Just Left' %}
                 Home
               {% else %}
                 Just Arrived
               {% endif %}
             {% else %}
-              {% if states.input_select.helen_status_dropdown.state == 'Just Left' %}
+              {% if states.input_select.stephanie_status_dropdown.state == 'Just Left' %}
                 Home
               {% else %}
                 Just Arrived
