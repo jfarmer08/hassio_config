@@ -134,7 +134,7 @@ binary_sensor: !include includes/binary_sensor.yaml
 weblink: !include includes/weblinks.yaml
 panel_iframe: !include includes/panel_iframes.yaml
 android_ip_webcam: !include includes/android_ip_webcams.yaml
-camera: !include includes/cameras.yaml
+#camera: !include includes/cameras.yaml
 sensor: !include includes/sensors.yaml
 group: !include includes/groups.yaml
 automation: !include includes/automations.yaml
