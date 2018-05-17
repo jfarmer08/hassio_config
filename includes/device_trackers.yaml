@@ -14,15 +14,21 @@
     host: 192.168.1.5
     username: root
     password: admin
+    new_device_defaults:
+      track_new_devices: True
+      hide_if_away: False
   - platform: ddwrt
     host: 192.168.1.2
     username: root
     password: admin
+    new_device_defaults:
+      track_new_devices: True
+      hide_if_away: False
   - platform: nmap_tracker
     consider_home: 120
     interval_seconds: 10
     hosts: 192.168.1.1/24
-  - platform: bluetooth_tracker
+  - platform: bluetooth_le_tracker
     interval_seconds: 20
     consider_home: 120
     track_new_devices: yes
