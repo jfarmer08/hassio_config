@@ -113,7 +113,7 @@
         - name: Cameras
           entities:
             - camera.front_door
-            - camera.back_door
+            - camera.garage_door
           states:
             - state: 'idle'
               class: 'camera-idle'
@@ -154,6 +154,7 @@
         - name: Locks
           entities:
             - lock.front_door
+            - locl.garage_door
           states:
             - state: 'locked'
               class: 'lock_locked'
