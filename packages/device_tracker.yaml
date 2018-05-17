@@ -60,3 +60,194 @@ group:
   Kaydee:
     entities:
       - device_tracker.kaydeesipad
+  people_status:
+  name: People Status
+  entities:
+    - sensor.allen_status
+    - sensor.stephanie_status
+    - sensor.chloe_status
+    - sensor.sheldon_status_dropdown
+    - sensor.kaydee_status
+sensor:
+  - platform: template
+    sensors:
+      allen_status:
+        value_template: '{{ states.input_select.allen_status_dropdown.state }}'
+        friendly_name: 'Allen'
+      stephanie_status:
+        value_template: '{{ states.input_select.stephanie_status_dropdown.state }}'
+        friendly_name: 'Stephanie'
+      chloe_status:
+        value_template: '{{ states.input_select.chloe_status_dropdown.state }}'
+        friendly_name: 'Chloe'
+      sheldon_status:
+        value_template: '{{ states.input_select.sheldon_status_dropdown.state }}'
+        friendly_name: 'Sheldon'
+      kaydee_status:
+        value_template: '{{ states.input_select.kaydee_status_dropdown.state }}'
+        friendly_name: 'Kaydee'
+input_select:
+  allen_status_dropdown:
+    name: Allen
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+  stephanie_status_dropdown:
+    name: Stephanie
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+  chloe_status_dropdown:
+    name: Chloe
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+  sheldon_status_dropdown:
+    name: Sheldon
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+  kaydee_status_dropdown:
+    name: Kaydee
+    options:
+      - Home
+      - Just Arrived
+      - Just Left
+      - Away
+      - Extended Away
+    initial: Home
+automation:
+  - alias: Mark person as just arrived
+    trigger:
+      - platform: state
+        entity_id: device_tracker.allens_iphone
+        from: 'not_home'
+        to: 'home'
+      - platform: state
+        entity_id: group.stephanie
+        from: 'not_home'
+        to: 'home'
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: >
+            {% if trigger.entity_id == 'device_tracker.allens_iphone' %}
+              input_select.allen_status_dropdown
+            {% else %}
+              input_select.stephanie_status_dropdown
+            {% endif %}
+          option: Just Arrived
+ 
+  - alias: Mark person as home
+    trigger:
+      - platform: state
+        entity_id: input_select.allen_status_dropdown
+        to: 'Just Arrived'
+        for:
+          minutes: 10
+      - platform: state
+        entity_id: input_select.stephanie_status_dropdown
+        to: 'Just Arrived'
+        for:
+          minutes: 10
+      - platform: state
+        entity_id: input_select.allen_status_dropdown
+        from: 'Just Left'
+        to: 'Just Arrived'
+      - platform: state
+        entity_id: input_select.stephanie_status_dropdown
+        from: 'Just Left'
+        to: 'Just Arrived'
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: >
+            {% if trigger.entity_id == 'input_select.allen_status_dropdown' %}
+              input_select.allen_status_dropdown
+            {% else %}
+              input_select.stephanie_status_dropdown
+            {% endif %}
+          option: Home
+ 
+  - alias: Mark person as just left
+    trigger:
+      - platform: state
+        entity_id: device_tracker.allens_iphone
+        from: 'home'
+        to: 'not_home'
+      - platform: state
+        entity_id: group.stephanie
+        from: 'home'
+        to: 'not_home'
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: >
+            {% if trigger.entity_id == 'device_tracker.allens_iphone' %}
+              input_select.allen_status_dropdown
+            {% else %}
+              input_select.stephanie_status_dropdown
+            {% endif %}
+          option: Just Left
+ 
+  - alias: Mark person as away
+    trigger:
+      - platform: state
+        entity_id: input_select.allen_status_dropdown
+        to: 'Just Left'
+        for:
+          minutes: 10
+      - platform: state
+        entity_id: input_select.stephanie_status_dropdown
+        to: 'Just Left'
+        for:
+          minutes: 10
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: >
+            {% if trigger.entity_id == 'input_select.allen_status_dropdown' %}
+              input_select.phil_status_dropdown
+            {% else %}
+              input_select.allen_status_dropdown
+            {% endif %}
+          option: Away
+ 
+  - alias: Mark person as extended away
+    trigger:
+      - platform: state
+        entity_id: input_select.allen_status_dropdown
+        to: 'Away'
+        for:
+          hours: 24
+      - platform: state
+        entity_id: input_select.stephanie_status_dropdown
+        to: 'Away'
+        for:
+          hours: 24
+    action:
+      - service: input_select.select_option
+        data_template:
+          entity_id: >
+            {% if trigger.entity_id == 'input_select.allen_status_dropdown' %}
+              input_select.allen_status_dropdown
+            {% else %}
+              input_select.stephanie_status_dropdown
+            {% endif %}
+          option: Extended Away
