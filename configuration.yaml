@@ -22,6 +22,7 @@ homeassistant:
     pack_7: !include packages/alarm_clock.yaml
     pack_8: !include packages/birthday.yaml
     pack_9: !include packages/hass_theme.yaml
+    pack_10: !include packages/zones.yaml
 ## Enables the frontend
 frontend:
 
@@ -106,30 +107,6 @@ octoprint:
 
 zwave:
   usb_path: /dev/ttyUSB0
-
-############
-# Additional Zones
-############
-zone:
-  name: Work
-  latitude: !secret work_latitude
-  longitude: !secret work_longitude
-  icon: mdi:server-network
-  radius: 250
-
-zone 2:
-  name: Noblesville Middle School
-  latitude: !secret MD_latitude
-  longitude: !secret MD_longitude
-  icon: mdi:hospital-building
-  radius: 250
-
-zone 3:
-  name: Noblesville School
-  latitude: !secret ELE_latitude
-  longitude: !secret ELE_longitude
-  icon: mdi:home
-  radius: 150
 
 media_player: !include includes/media_players.yaml
 ifttt: !include includes/ifttt.yaml
