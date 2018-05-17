@@ -25,6 +25,10 @@ frontend:
 # Show links to resources in log and frontend
 introduction:
 
+#https://www.home-assistant.io/components/calendar.google/
+google:
+  client_id: !secret google_ID_CAL
+  client_secret: !secret bMNlW2GEcV6F9wCB5uQa9DWU
 
 # Enables configuration UI
 config:
