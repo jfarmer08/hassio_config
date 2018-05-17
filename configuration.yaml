@@ -31,9 +31,9 @@ frontend:
 introduction:
 
 #https://www.home-assistant.io/components/calendar.google/
-google:
-  client_id: !secret google_ID_CAL
-  client_secret: !secret google_secret_CAL
+#google:
+#  client_id: !secret google_ID_CAL
+ # client_secret: !secret google_secret_CAL
   
 calendar:
   - platform: caldav
