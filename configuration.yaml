@@ -23,6 +23,7 @@ homeassistant:
     pack_8: !include packages/birthday.yaml
     pack_9: !include packages/hass_theme.yaml
     pack_10: !include packages/zones.yaml
+    pack_11: !include packages/google_geocode.yaml
 ## Enables the frontend
 frontend:
 
