@@ -28,7 +28,7 @@ introduction:
 #https://www.home-assistant.io/components/calendar.google/
 google:
   client_id: !secret google_ID_CAL
-  client_secret: !secret bMNlW2GEcV6F9wCB5uQa9DWU
+  client_secret: !secret google_secret_CAL
 
 # Enables configuration UI
 config:
