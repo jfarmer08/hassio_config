@@ -24,17 +24,12 @@ homeassistant:
     pack_9: !include packages/hass_theme.yaml
     pack_10: !include packages/zones.yaml
     pack_11: !include packages/google_geocode.yaml
+    pack_12: !include packages/frontend_themes.yaml
 ## Enables the frontend
 frontend:
 
 # Show links to resources in log and frontend
 introduction:
-
-#https://www.home-assistant.io/components/calendar.google/
-#google:
-#  client_id: !secret google_ID_CAL
- # client_secret: !secret google_secret_CAL
-  
 calendar:
   - platform: caldav
     username: !secret google_username

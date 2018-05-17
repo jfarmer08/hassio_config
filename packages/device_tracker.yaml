@@ -47,7 +47,7 @@ group:
       - device_tracker.farmerwork
       - device_tracker.farmerwork_2
   allens_Car_DT_GROUP:
-    name: Allen Car
+    name: Honda FIT
     entities:
       - device_tracker.obdii
   stephanie_DT_GROUP:
