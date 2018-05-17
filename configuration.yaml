@@ -29,6 +29,12 @@ introduction:
 google:
   client_id: !secret google_ID_CAL
   client_secret: !secret google_secret_CAL
+  
+calendar:
+  - platform: caldav
+    username: !secret google_username
+    password: !secret google_Password
+    url: !secret google_CAL_URL
 
 # Enables configuration UI
 config:
