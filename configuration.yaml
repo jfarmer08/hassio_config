@@ -19,7 +19,7 @@ homeassistant:
     pack_4: !include packages/homeassistant.yaml
     pack_5: !include packages/traffic_cam.yaml
     pack_6: !include packages/cameras.yaml
-    pack_7: !include packages/alarm_clock.yaml
+    #pack_7: !include packages/alarm_clock.yaml
     pack_8: !include packages/birthday.yaml
 ## Enables the frontend
 frontend:
