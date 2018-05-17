@@ -9,7 +9,7 @@ homeassistant:
   # metric for Metric, imperial for Imperial
   unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: America/Indiana/Indianapolis
+  time_zone: !secret time_zone
   # Customization file
   customize: !include includes/customize.yaml
   packages: 
@@ -19,6 +19,7 @@ homeassistant:
     pack_4: !include packages/homeassistant.yaml
     pack_5: !include packages/traffic_cam.yaml
     pack_6: !include packages/cameras.yaml
+    pack_7: !include packages/alarm_clock.yaml
 ## Enables the frontend
 frontend:
 
