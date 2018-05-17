@@ -35,8 +35,28 @@ device_tracker:
     request_rssi: true
     track_new_devices: yes
 group:
-  person_allen:
+  Allen:
     entities:
       - device_tracker.allens_iphone
       - device_tracker.allens_iphone_2
       - device_tracker.allensiphone
+  Allen_Work:
+    entities:
+      - device_tracker.farmerwork
+      - device_tracker.farmerwork_2
+  Allens_Car:
+    entities:
+      - device_tracker.obdii
+  Stephanie:
+    entities:
+      - device_tracker.stephanesiphone
+      - device_tracker.stephaniesipad
+  Chloe:
+    entities:
+      - device_tracker.101114
+  Sheldon:
+    entities:
+      - device_tracker.sheldonsiphone
+  Kaydee:
+    entities:
+      - device_tracker.kaydeesipad
