@@ -1,4 +1,4 @@
-﻿var urls = ['http://192.168.1.102:8080/', 'http://192.168.1.84:8080/', 'http://admin:SG9uZGExMjU=@192.168.1.119:8080/stream/video/mjpeg'];
+﻿var urls = ['http://192.168.1.122:8080/', 'http://192.168.1.93:8080/video','http://192.168.1.35:8080/video', 'http://admin:SG9uZGExMjU=@192.168.1.64:8080/stream/video/mjpeg'];
 var pos = 0;
 
 function Start() {
